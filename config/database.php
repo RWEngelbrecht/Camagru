@@ -4,6 +4,7 @@ function create_db($db_name) {
 	$db_user = "root";
 	$db_passwd = "qwerqwer";
 	$dsn = "mysql:host=".$db_host;
+	// $db_name = "db_camagru";
 
 	try {
 		$dbh = new PDO($dsn, $db_user, $db_passwd);
