@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
-include ("config/setup.php");
+//include("config/setup.php");
+include "config/setup.php";
 ini_set("display_errors", true);
 session_start();
     // include("functions/functions.php");
@@ -12,18 +13,16 @@ session_start();
 		<title>Camagru</title>
 	</head>
 	<body>
-		<div class="main_wrapper">
 			<div class="header_wrapper">
 				<a href="index.php">
-					<img id="banner" src="images/logom.png">
+					<img id="banner" src="images/rengelbr_logo.png">
 				</a>
 			</div>
-			<!--Navigation bar starts-->
+		<div class="main_wrapper">
+			<!--Navigation bar-->
 			<div class="menubar">
 				<ul id="menu">
 						<li><a href="index.php">Home</a></li>
-						<li><a href="#">PH</a></li>
-						<li><a href="#">PH</a></li>
 				</ul>
 				<div class="dropdown">
 						<button onclick="myFunction()" class="dropbtn">Login - Register</button>
@@ -62,7 +61,7 @@ session_start();
 			<!--content wrapper ends-->
 			<!--footer starts-->
 			<div id="footer">
-				<h2 style="text-align:center; padding-top:30px;">jrheeder</h2>
+				<h2 style="text-align:center; padding-top:30px;">rengelbr</h2>
 			</div>
 		</div>
 		<!--footer ends-->
