@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-//include("config/setup.php");
-include "config/setup.php";
+// include("config/setup.php");
+include "config/connect.php";
 ini_set("display_errors", true);
 session_start();
     // include("functions/functions.php");
