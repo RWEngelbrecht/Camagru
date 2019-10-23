@@ -130,10 +130,12 @@ toggle between hiding and showing the dropdown content */
 			$_SESSION['user_id'] = $u_id['user_id'];
 
 //send email to user_email for verification
-			verif_email($u_email, $ver_code);
-
-			// echo "<script>window.alert('An email has been sent to ".$u_email."')</script>";
-			// echo "<script>window.open('verify_email.php', '_self')</script>";
+			if (verif_email($u_email, $ver_code)) {
+				echo "<script>window.alert('An email has been sent to ".$u_email."')</script>";
+			}
+			else {
+				echo "<script>window.alert('Something went horribly wrong!')</script>";
+			}
 		}
 		$con = null;
 	}
