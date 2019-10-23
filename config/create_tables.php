@@ -9,11 +9,12 @@ try {
 
 	$sql = "CREATE TABLE IF NOT EXISTS $table(
 	`user_id` INT(100) AUTO_INCREMENT PRIMARY KEY,
-	`user_name` varchar(255) NOT NULL,
-	`user_passwd` varchar(255) NOT NULL,
-	`user_email` varchar(255) NOT NULL,
-	`user_contact` varchar(100) NOT NULL,
-	`user_image` varchar(255))";
+	`user_name` VARCHAR(255) NOT NULL,
+	`user_passwd` VARCHAR(255) NOT NULL,
+	`user_email` VARCHAR(255) NOT NULL,
+	`user_contact` VARCHAR(100) NOT NULL,
+	`user_image` VARCHAR(255),
+	`verified` BIT default 0 NOT NULL)";
 
 	$con->exec($sql);
 }
