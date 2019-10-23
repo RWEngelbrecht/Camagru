@@ -14,6 +14,7 @@ try {
 	`user_email` VARCHAR(255) NOT NULL,
 	`user_contact` VARCHAR(100) NOT NULL,
 	`user_image` VARCHAR(255),
+	`token` VARCHAR(255) NOT NULL,
 	`verified` BIT default 0 NOT NULL)";
 
 	$con->exec($sql);
