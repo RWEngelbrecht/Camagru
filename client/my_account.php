@@ -23,16 +23,17 @@ session_start();
 			<div class="menubar">
 				<ul id="menu">
 						<li><a href="../index.php">Home</a></li>
+						<li>Log Out</li>
 				</ul>
-				<div class="dropdown">
+				<!-- <div class="dropdown">
 						<button onclick="myFunction()" class="dropbtn">Login - Register</button>
 						<div id="myDropdown" class="dropdown-content">
 							<a href="../login.php">Login</a>
 							<a href="../register.php">Register</a>
 							<a href="../fml.php">Forgot account-temp-</a>
 						</div>
-				</div>
-				<script>
+				</div> -->
+				<!-- <script>
 				/* When the user clicks on the button,
 				toggle between hiding and showing the dropdown content */
 				function myFunction() {
@@ -52,11 +53,11 @@ session_start();
 						}
 					}
 				}
-				</script>
+				</script> -->
 			</div>
 			<!--content wrapper starts-->
 			<div class="content_wrapper">
-				<h1>Welcome <?php echo $_SESSION['user_email']; ?></h1>
+				<h2>Welcome <?php echo $_SESSION['user_email']; ?></h2>
 			</div>
 			<!--content wrapper ends-->
 			<!--footer starts-->

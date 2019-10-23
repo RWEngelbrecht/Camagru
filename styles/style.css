@@ -70,6 +70,11 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+.content_wrapper h2 {
+	font-family: Arial, Helvetica, sans-serif;
+	padding-top: 10px;
+}
+
 #banner {
     float:right;
     position: absolute;
@@ -94,7 +99,7 @@ body {
 #menu a {
     text-decoration: none;
     color:white;
-    padding: 55px;
+    /* padding: 55px; */
     margin:50px;
     font-size:17px;
     font-family: Arial, Helvetica, sans-serif;

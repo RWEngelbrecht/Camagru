@@ -35,7 +35,7 @@ session_start();
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 				function myFunction() {
-				document.getElementById("myDropdown").classList.toggle("show");
+					document.getElementById("myDropdown").classList.toggle("show");
 				}
 
 // Close the dropdown if the user clicks outside of it
@@ -131,7 +131,8 @@ toggle between hiding and showing the dropdown content */
 
 //send email to user_email for verification
 			if (verif_email($u_email, $ver_code)) {
-				echo "<script>window.alert('An email has been sent to ".$u_email."')</script>";
+				echo "<script>window.alert('An email has been sent to ".$u_email.". Follow the instructions to verify your account.')</script>";
+				echo "<script>window.open('index.php', '_self')</script>";
 			}
 			else {
 				echo "<script>window.alert('Something went horribly wrong!')</script>";

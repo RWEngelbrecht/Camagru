@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 // include("config/setup.php");
-include '../config/connect.php';
+include '../includes/connect.php';
 include '../config/database.php';
 ini_set("display_errors", true);
 session_start();
@@ -58,14 +58,17 @@ session_start();
 			<!--content wrapper starts-->
 			<div class="content_wrapper">
 				<?php
-					print_r($_SESSION);
 					$u_email = $_SESSION['user_email'];
-					echo $u_email."\n";
 					if (isset($_GET['ver_key'])) {
 						$get_ver = $con->prepare("SELECT token FROM users WHERE user_email=?");
 						$get_ver->execute([$u_email]);
 						$fetch_key = $get_ver->fetch();
 						$ver_key = $fetch_key['token'];
+						if ($_GET['ver_key'] == $ver_key) {
+							$updt_usr = $con->prepare("UPDATE users SET verified=1 WHERE user_email='$u_email'");
+							$updt_usr->execute();
+							echo "<h2>You have successfully registered. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php'>here</a>.</h2>";
+						}
 					}
 				?>
 			</div>
