@@ -10,7 +10,7 @@ session_start();
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="styles/style.css" media="all" />
+		<link rel="stylesheet" href="styles/index.css" media="all" />
 		<title>Camagru</title>
 	</head>
 	<body>
@@ -22,16 +22,24 @@ session_start();
 		<div class="main_wrapper">
 			<!--Navigation bar-->
 			<div class="menubar">
-				<ul id="menu">
-						<li><a href="index.php">Home</a></li>
+
 				<?php
 					if (isset($_SESSION['user_id']))
 					{
-						if (verif_user($_SESSION['user_id']))
-							echo "<li><a href='my_account.php?session_status=logout'>Log Out</a></li></ul>";
+						if (verif_user($_SESSION['user_id'])) {
+							echo "<ul id='my_acc_menu'>
+									<li><a href='index.php'>Home</a></li>
+									<li><a href='client/my_account.php?user=".$_SESSION['user_id']."'>My Account</a></li>
+									<li><a href='index.php?session_status=logout'>Log Out</a></li>
+									</ul>";
+						}
+
 					}
 					else {
-						echo "</ul><div class='dropdown'>
+						echo "<ul id='menu'>
+								<li><a href='index.php'>Home</a></li>
+								</ul>
+								<div class='dropdown'>
 								<button onclick='myFunction()' class='dropbtn'>Login - Register</button>
 								<div id='myDropdown' class='dropdown-content'>
 									<a href='login.php'>Login</a>
@@ -84,3 +92,11 @@ session_start();
 		<!--footer ends-->
 	</body>
 </html>
+<?php
+if (isset($_GET['session_status'])) {
+	if ($_GET['session_status'] == "logout") {
+		session_destroy();
+		echo "<script>window.open('index.php', '_self')</script>";
+	}
+}
+?>
