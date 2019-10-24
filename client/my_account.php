@@ -10,7 +10,7 @@ session_start();
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="../styles/style.css" media="all" />
+		<link rel="stylesheet" href="../styles/index.css" media="all" />
 		<title>Camagru</title>
 	</head>
 	<body>
