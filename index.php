@@ -2,6 +2,7 @@
 <?php
 // include("config/setup.php");
 include "config/connect.php";
+include "functions/functions.php";
 ini_set("display_errors", true);
 session_start();
     // include("functions/functions.php");
@@ -23,15 +24,31 @@ session_start();
 			<div class="menubar">
 				<ul id="menu">
 						<li><a href="index.php">Home</a></li>
-				</ul>
-				<div class="dropdown">
+				<?php
+					if (isset($_SESSION['user_id']))
+					{
+						if (verif_user($_SESSION['user_id']))
+							echo "<li><a href='my_account.php?session_status=logout'>Log Out</a></li></ul>";
+					}
+					else {
+						echo "</ul><div class='dropdown'>
+								<button onclick='myFunction()' class='dropbtn'>Login - Register</button>
+								<div id='myDropdown' class='dropdown-content'>
+									<a href='login.php'>Login</a>
+									<a href='register.php'>Register</a>
+									<a href='fml.php'>Forgot account-temp-</a>
+								</div>
+							</div>";
+					}
+				?>
+				<!-- <div class="dropdown">
 						<button onclick="myFunction()" class="dropbtn">Login - Register</button>
 						<div id="myDropdown" class="dropdown-content">
 							<a href="login.php">Login</a>
 							<a href="register.php">Register</a>
 							<a href="fml.php">Forgot account-temp-</a>
 						</div>
-				</div>
+				</div> -->
 				<script>
 				/* When the user clicks on the button,
 				toggle between hiding and showing the dropdown content */
