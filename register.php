@@ -128,6 +128,7 @@ toggle between hiding and showing the dropdown content */
 			$u_id = $get_id->fetch();
 			$_SESSION['user_email'] = $u_email;
 			$_SESSION['user_id'] = $u_id['user_id'];
+			$_SESSION['user_name'] = $u_name;
 
 //send email to user_email for verification
 			if (verif_email($u_email, $ver_code)) {
