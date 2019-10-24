@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
 // include("config/setup.php");
-include "config/connect.php";
+include "../config/connect.php";
+include "../functions/functions.php";
 ini_set("display_errors", true);
 session_start();
 // include("functions/functions.php");
@@ -21,9 +22,9 @@ session_start();
 		<div class="main_wrapper">
 			<!--Navigation bar-->
 			<div class="menubar">
-				<ul id="menu">
+				<ul id="my_acc_menu">
 						<li><a href="../index.php">Home</a></li>
-						<li>Log Out</li>
+						<li><a href="my_account.php?session_status=logout">Log Out</a></li>
 				</ul>
 				<!-- <div class="dropdown">
 						<button onclick="myFunction()" class="dropbtn">Login - Register</button>
@@ -57,7 +58,17 @@ session_start();
 			</div>
 			<!--content wrapper starts-->
 			<div class="content_wrapper">
-				<h2>Welcome <?php echo $_SESSION['user_email']; ?></h2>
+				<?php
+					if (isset($_SESSION['user_id'])) {
+						if (verif_user($_SESSION['user_id']))
+							echo "<h2>Welcome, ".$_SESSION['user_name']."</h2>";
+						else
+							echo "<h2>You're not supposed to be here!</h2>";
+					}
+					else {
+						echo "<h2>Welcome, whoever you are! Please log in or register.</h2>";
+					}
+				?>
 			</div>
 			<!--content wrapper ends-->
 			<!--footer starts-->
@@ -68,3 +79,11 @@ session_start();
 		<!--footer ends-->
 	</body>
 </html>
+<?php
+if (isset($_GET['session_status'])) {
+	if ($_GET['session_status'] == "logout") {
+		session_destroy();
+		echo "<script>window.open('../index.php', '_self')</script>";
+	}
+}
+?>
