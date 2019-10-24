@@ -23,7 +23,7 @@ session_start();
 			<!--Navigation bar-->
 			<div class="menubar">
 				<ul id="menu">
-						<li><a href="index.php">Home</a></li>
+						<li><a href="../index.php">Home</a></li>
 				</ul>
 				<div class="dropdown">
 						<button onclick="myFunction()" class="dropbtn">Login - Register</button>
@@ -67,7 +67,7 @@ session_start();
 						if ($_GET['ver_key'] == $ver_key) {
 							$updt_usr = $con->prepare("UPDATE users SET verified=1 WHERE user_email='$u_email'");
 							$updt_usr->execute();
-							echo "<h2>You have successfully registered. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php'>here</a>.</h2>";
+							echo "<h2>You have successfully registered. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php?user=".$_SESSION['user_id']."'>here</a>.</h2>";
 						}
 					}
 				?>
