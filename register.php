@@ -8,7 +8,7 @@ session_start();
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="styles/style.css" media="all" />
+		<link rel="stylesheet" href="styles/index.css" media="all" />
 		<title>Camagru</title>
 	</head>
 	<body>
@@ -106,7 +106,7 @@ toggle between hiding and showing the dropdown content */
 		$u_image_tmp = $_FILES['u_image']['tmp_name'];
 		move_uploaded_file($u_image_tmp, "client/client_images/$u_image");
 		$u_contact = $_POST['u_contact'];
-		$ver_code = hash('whirlpool', time().$u_name);
+		$ver_code = hash('whirlpool', time().$u_email);
 //check if user email exists in db
 		$check = $con->prepare("SELECT * FROM users WHERE user_email=?");
 		$check->execute([$u_email]);
@@ -114,21 +114,22 @@ toggle between hiding and showing the dropdown content */
 		if ($ret) {
 			echo "<script>window.alert('This user exists!')</script>";
 		}
+// Verify if is actual email
 		// else if (!filter_var($u_email, FILTER_VALIDATE_MAIL)) {
 		// 	echo "<script>window.alert('Please enter a valid email address!')</script>";
 		// }
 		else {
-//execute insert query
+//execute insert query  ///make seperate function
 			$sql = "INSERT INTO users (`user_name`, `user_passwd`, `user_email`, `user_contact`, `user_image`, `token`) VALUES ('$u_name', '$u_passwd', '$u_email', '$u_contact', '$u_image', '$ver_code')";
 			$con->exec($sql);
 
-//save session vars for later use
-			$get_id = $con->prepare("SELECT `user_id` FROM users WHERE user_email=?");
-			$get_id->execute([$u_email]);
-			$u_id = $get_id->fetch();
-			$_SESSION['user_email'] = $u_email;
-			$_SESSION['user_id'] = $u_id['user_id'];
-			$_SESSION['user_name'] = $u_name;
+//save session vars for later use   ///make seperate funct
+			// $get_id = $con->prepare("SELECT `user_id` FROM users WHERE user_email=?");
+			// $get_id->execute([$u_email]);
+			// $u_id = $get_id->fetch();
+			// $_SESSION['user_email'] = $u_email;
+			// $_SESSION['user_id'] = $u_id['user_id'];
+			// $_SESSION['user_name'] = $u_name;
 
 //send email to user_email for verification
 			if (verif_email($u_email, $ver_code)) {
