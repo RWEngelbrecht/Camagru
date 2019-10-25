@@ -80,39 +80,7 @@ toggle between hiding and showing the dropdown content */
 				</form>
 				<?php
 					if (isset($_POST['login'])) {
-	//validate email + password
-						$u_email = $_POST['user_email'];
-						$u_passwd = hash('whirlpool',$_POST['user_passwd']);
-						$get_udata = $con->prepare("SELECT * FROM users WHERE user_email=?");
-						$get_udata->execute([$u_email]);
-						$user_data = $get_udata->fetch();
-
-						if (!$user_data) {
-							echo "<script>window.alert('You don't exist yet! How about registering first?')</script>";
-						}
-		//if email from form == email from db && passwd from form == passwd from db and user has been verified
-						if ($u_email == $user_data['user_email'] && $u_passwd == $user_data['user_passwd'] && $user_data['verified'] == 1) {
-				//store session data
-							$_SESSION['user_email'] = $u_email;
-							$_SESSION['user_id'] = $user_data['user_id'];
-							$_SESSION['user_name'] = $user_data['user_name'];
-				//take client to their account page
-							echo "<script>window.open('client/my_account.php?', '_self')</script>";
-						} //if all of the above, but user has not gone through verification link emailed to them
-						else if ($u_email == $user_data['user_email'] && $u_passwd == $user_data['user_passwd'] && $user_data['verified'] == 0) {
-
-							echo "<script>window.alert('Please verify your account. We sent you instructions on how to do that.')</script>";
-							$_SESSION['user_email'] = $u_email;
-							$_SESSION['user_id'] = $user_data['user_id'];
-							$_SESSION['user_name'] = $user_data['user_name'];
-							$u_ver = $user_data['token'];
-							verif_email($u_email, $u_ver);
-						}
-						else if ($u_email == $user_data['user_email'] && $u_passwd != $user_data['user_passwd']) {
-
-							echo "<script>window.alert('Password incorrect!')</script>";
-						}
-						$con = null;    ////????
+						log_in();
 					}
 				?>
 			</div>
