@@ -81,9 +81,10 @@ session_start();
 </html>
 <?php
 if (isset($_GET['session_status'])) {
-	if ($_GET['session_status'] == "logout") {
-		session_destroy();
-		echo "<script>window.open('../index.php', '_self')</script>";
-	}
+	// if ($_GET['session_status'] == "logout") {
+	// 	session_destroy();
+	// 	echo "<script>window.open('../index.php', '_self')</script>";
+	// }
+	log_out("my_account");
 }
 ?>
