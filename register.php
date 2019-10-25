@@ -100,8 +100,15 @@ toggle between hiding and showing the dropdown content */
 	if (isset($_POST['register'])) {
 //get registration data
 		$u_name = $_POST['u_name'];
+
+		validate_name($u_name);
+
 		$u_email = $_POST['u_email'];
+
+		validate_email($u_email);
+
 		$u_passwd = hash('whirlpool', $_POST['u_passwd']);
+		validate_password($_POST['u_passwd']);
 		$u_image = $_FILES['u_image']['name'];
 		$u_image_tmp = $_FILES['u_image']['tmp_name'];
 		move_uploaded_file($u_image_tmp, "client/client_images/$u_image");
@@ -127,9 +134,9 @@ toggle between hiding and showing the dropdown content */
 			// $get_id = $con->prepare("SELECT `user_id` FROM users WHERE user_email=?");
 			// $get_id->execute([$u_email]);
 			// $u_id = $get_id->fetch();
-			// $_SESSION['user_email'] = $u_email;
+			$_SESSION['user_email'] = $u_email;
 			// $_SESSION['user_id'] = $u_id['user_id'];
-			// $_SESSION['user_name'] = $u_name;
+			$_SESSION['user_name'] = $u_name;
 
 //send email to user_email for verification
 			if (verif_email($u_email, $ver_code)) {
