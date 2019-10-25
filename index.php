@@ -22,32 +22,31 @@ session_start();
 		<div class="main_wrapper">
 			<!--Navigation bar-->
 			<div class="menubar">
-
 				<?php
-					if (isset($_SESSION['user_id']))
-					{
-						if (verif_user($_SESSION['user_id'])) {
-							echo "<ul id='my_acc_menu'>
-									<li><a href='index.php'>Home</a></li>
-									<li><a href='client/my_account.php?user=".$_SESSION['user_id']."'>My Account</a></li>
-									<li><a href='index.php?session_status=logout'>Log Out</a></li>
-									</ul>";
-						}
-
-					}
-					else {
-						echo "<ul id='menu'>
-								<li><a href='index.php'>Home</a></li>
-								</ul>
-								<div class='dropdown'>
-								<button onclick='myFunction()' class='dropbtn'>Login - Register</button>
-								<div id='myDropdown' class='dropdown-content'>
-									<a href='login.php'>Login</a>
-									<a href='register.php'>Register</a>
-									<a href='fml.php'>Forgot account-temp-</a>
-								</div>
-							</div>";
-					}
+					// if (isset($_SESSION['user_id']))
+					// {
+					// 	if (verif_user($_SESSION['user_id'])) {
+					// 		echo "<ul id='my_acc_menu'>
+					// 				<li><a href='index.php'>Home</a></li>
+					// 				<li><a href='client/my_account.php?user=".$_SESSION['user_id']."'>My Account</a></li>
+					// 				<li><a href='index.php?session_status=logout'>Log Out</a></li>
+					// 				</ul>";
+					// 	}
+					// }
+					// else {
+					// 	echo "<ul id='menu'>
+					// 			<li><a href='index.php'>Home</a></li>
+					// 			</ul>
+					// 			<div class='dropdown'>
+					// 			<button onclick='myFunction()' class='dropbtn'>Login - Register</button>
+					// 			<div id='myDropdown' class='dropdown-content'>
+					// 				<a href='login.php'>Login</a>
+					// 				<a href='register.php'>Register</a>
+					// 				<a href='fml.php'>Forgot account-temp-</a>
+					// 			</div>
+					// 		</div>";
+					// }
+					get_menu();
 				?>
 				<!-- <div class="dropdown">
 						<button onclick="myFunction()" class="dropbtn">Login - Register</button>
@@ -94,9 +93,10 @@ session_start();
 </html>
 <?php
 if (isset($_GET['session_status'])) {
-	if ($_GET['session_status'] == "logout") {
-		session_destroy();
-		echo "<script>window.open('index.php', '_self')</script>";
-	}
+	// if ($_GET['session_status'] == "logout") {
+	// 	session_destroy();
+	// 	echo "<script>window.open('index.php', '_self')</script>";
+	// }
+	log_out("index");
 }
 ?>
