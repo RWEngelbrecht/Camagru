@@ -24,18 +24,18 @@ session_start();
 			<!--Navigation bar-->
 			<div class="menubar">
 			<?php
-					// if (isset($_SESSION['user_id']))
-					// {
+					if (isset($_SESSION['user_id']))
+					{
 						if (verif_user($_SESSION['user_id']))
 							echo "<ul id='my_acc_menu'>
-									<li><a href='index.php'>Home</a></li>
+									<li><a href='../index.php'>Home</a></li>
 									<li><a href='../client/my_account.php?user=".$_SESSION['user_id']."'>My Account</a></li>
 									<li><a href='../index.php?session_status=logout'>Log Out</a></li>
 									</ul>";
-					// }
+					}
 					else {
 						echo "<ul id='menu'>
-								<li><a href='index.php'>Home</a></li>
+								<li><a href='../index.php'>Home</a></li>
 								</ul>
 								<div class='dropdown'>
 								<button onclick='myFunction()' class='dropbtn'>Login - Register</button>
@@ -72,17 +72,35 @@ session_start();
 			<!--content wrapper starts-->
 			<div class="content_wrapper">
 				<?php
-					$u_email = $_SESSION['user_email'];
 					if (isset($_GET['ver_key'])) {
-						$get_ver = $con->prepare("SELECT token FROM users WHERE user_email=?");
-						$get_ver->execute([$u_email]);
-						$fetch_key = $get_ver->fetch();
-						$ver_key = $fetch_key['token'];
-						if ($_GET['ver_key'] == $ver_key) {
-							$updt_usr = $con->prepare("UPDATE users SET verified=1 WHERE user_email='$u_email'");
-							$updt_usr->execute();
-							echo "<h2>You have successfully registered. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php?user=".$_SESSION['user_id']."'>here</a>.</h2>";
+						$get_user = $con->prepare("SELECT * FROM users WHERE token=?");
+						$get_user->execute([$_GET['ver_key']]);
+						$user = $get_user->fetch();
+						if ($user['verified'] == 1) {
+							$_SESSION['user_name'] = $user['user_name'];
+							$_SESSION['user_email'] = $user['user_email'];
+							$_SESSION['user_id'] = $user['user_id'];
+							echo "<h2>You are already a verified user. That's good, but what are you doing in a place like this? Just click <a href='my_account.php'>here</a>.</h2>";
+						} else {
+							$u_email = $user['user_email'];
+							// $get_ver = $con->prepare("SELECT token FROM users WHERE user_email=?");
+							// $get_ver->execute([$u_email]);
+							// $fetch_key = $get_ver->fetch();
+							$ver_key = $user['token'];
+							// if ($_GET['ver_key'] == $ver_key) {
+								$updt_usr = $con->prepare("UPDATE users SET verified=1 WHERE user_email=?");
+								$updt_usr->execute([$u_email]);
+								// $get_id = $con->prepare("SELECT `user_id` FROM users WHERE user_email=?");
+								// $get_id->execute([$u_email]);
+								// $u_id = $get_id->fetch();
+								$_SESSION['user_name'] = $user['user_name'];
+								$_SESSION['user_email'] = $user['user_email'];
+								$_SESSION['user_id'] = $user['user_id'];
+								echo "<h2>You have successfully registered. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php?'>here</a>.</h2>";
 						}
+					}
+					else {
+						echo "<script>window.alert('How the hell did you get here? Away with ye!');window.open('../index.php', '_self')</script>";
 					}
 
 				?>
