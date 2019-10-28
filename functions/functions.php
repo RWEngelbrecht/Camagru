@@ -37,7 +37,7 @@ function verif_email($u_email, $ver_code) {
 function verif_user($user_id) {
 	// include ('../includes/connect.php');
 	try {
-		$con = new PDO("mysql:host=localhost;dbname=db_camagru", "root", "root");
+		$con = new PDO("mysql:host=localhost;dbname=db_camagru", "root", "qwerqwer");
 		$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOException $e) {
@@ -72,7 +72,6 @@ function get_menu() {
 				<div id='myDropdown' class='dropdown-content'>
 					<a href='login.php'>Login</a>
 					<a href='register.php'>Register</a>
-					<a href='fml.php'>Forgot account-temp-</a>
 				</div>
 			</div>";
 	}
@@ -121,4 +120,50 @@ function log_out($page){
 		}
 	}
 }
+
+function reset_passwd() {
+	include '../includes/connect.php';
+
+	$u_email = $_POST['user_email'];
+
+	$get_udata = $con->prepare("SELECT * FROM users WHERE user_email=?");
+	$get_udata->execute([$u_email]);
+	$user_data = $get_udata->fetch();
+
+	if (verif_user($user_data['user_id'])) {
+
+		$ver_code = hash('whirlpool', time().$u_email);
+		$updt_verif = $con->prepare('UPDATE users SET token=:ver_code WHERE user_email=:u_email');
+		$updt_verif->execute(array(':ver_code'=>$ver_code, ':u_email'=>$user_data['user_email']));
+
+		$subject = "Reset your password with Camagru.";
+		$body = "Forgot your password, did you? Please click <a href='http://localhost:8080/Camagru/passwd_reset.php?ver_key=".$ver_code."'>here</a> to reset your password.\r\nIf this wasn't you, call the internet police.";
+		$headers = "From: camagru.rigardt@gmail.com\r\n";
+		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+		if (mail($u_email,$subject,$body,$headers))
+			return true;
+		else
+			return false;
+	}
+}
+
+function replace_passwd($new_passwd, $verif_key) {
+	include 'includes/connect.php';
+
+	$u_email = $_POST['user_email'];
+
+	$get_udata = $con->prepare("SELECT * FROM users WHERE user_email=?");
+	$get_udata->execute([$u_email]);
+	$user_data = $get_udata->fetch();
+	if ($verif_key != $user_data['token']) {
+		echo "window.alert('Hol\' up. It wasn't you who reset the password, was it?')";
+		exit();
+	}
+	$updt_pw = $con->prepare("UPDATE users SET user_passwd=:new_passwd WHERE user_email=:u_email");
+	if ($updt_pw->execute(array(':new_passwd'=>$new_passwd, ':u_email'=>$u_email)))
+		return true;
+	else
+		return false;
+}
+
 ?>
