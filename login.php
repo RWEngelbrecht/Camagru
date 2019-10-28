@@ -50,7 +50,6 @@ toggle between hiding and showing the dropdown content */
 						<div id="myDropdown" class="dropdown-content">
 							<a href="login.php">Login</a>
 							<a href="register.php">Register</a>
-							<a href="fml.php">Forgot account-temp-</a>
 						</div>
 					</div>
 				</div>
@@ -77,7 +76,7 @@ toggle between hiding and showing the dropdown content */
 							<td><input type="password" name="user_passwd" placeholder="password" required/></td>
 						</tr>
 						<tr>
-							<td align="right" colspan="3" style="font-size:12px;padding:0px 90px 5px"><a href="forgot_pass.php">Forgot Password?</a></td>
+							<td align="right" colspan="3" style="font-size:12px;padding:0px 90px 5px"><a href="client/forgot_passwd.php">Forgot Password?</a></td>
 						</tr>
 						<tr align="center">
 							<td colspan="3"><input type="submit" name="login" value="Log In"/></td>
