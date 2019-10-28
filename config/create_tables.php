@@ -13,7 +13,7 @@ try {
 	`user_passwd` VARCHAR(255) NOT NULL,
 	`user_email` VARCHAR(255) NOT NULL,
 	`user_contact` VARCHAR(100) NOT NULL,
-	`user_image` VARCHAR(255),
+	`user_image` LONGBLOB,
 	`token` VARCHAR(255) NOT NULL,
 	`verified` BIT default 0 NOT NULL)";
 
