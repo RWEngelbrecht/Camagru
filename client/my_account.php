@@ -18,6 +18,7 @@ session_start();
 	<body>
 		<header>
 			<div class="menubar">
+			<!--Navigation bar-->
 				<a href="index.php">
 					<img id="banner" src="../images/rengelbr_logo.png">
 				</a>
@@ -30,11 +31,7 @@ session_start();
 			</div>
 		</header>
 		<div class="main_wrapper">
-			<!--Navigation bar-->
-			<div class="menubar">
-
-			</div>
-			<!--content wrapper starts-->
+<!--content wrapper starts-->
 			<div class="content_wrapper">
 				<?php
 					if (isset($_SESSION['user_id'])) {
@@ -47,9 +44,10 @@ session_start();
 						echo "<h2>Welcome, whoever you are! Please log in or register.</h2>";
 					}
 				?>
+				
 			</div>
-			<!--content wrapper ends-->
-			<!--footer starts-->
+<!--content wrapper ends-->
+<!--footer starts-->
 			<div id="footer">
 				<h2 style="text-align:center; padding-top:30px;">&#169; rengelbr</h2>
 			</div>
