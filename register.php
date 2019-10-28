@@ -49,7 +49,6 @@ toggle between hiding and showing the dropdown content */
 						<div id="myDropdown" class="dropdown-content">
 							<a href="login.php">Login</a>
 							<a href="register.php">Register</a>
-							<a href="fml.php">Forgot account-temp-</a>
 						</div>
 					</div>
 				</div>
