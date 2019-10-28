@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <?php
-// include("config/setup.php");
+include("config/setup.php");
 include "config/connect.php";
 include "functions/functions.php";
 ini_set("display_errors", true);
 session_start();
-    // include("functions/functions.php");
 ?>
 <html lang="en">
 	<head>
@@ -53,7 +52,9 @@ toggle between hiding and showing the dropdown content */
 
 			<!--content wrapper starts-->
 			<div class="content_wrapper">
+				<div class="gallery">
 
+				</div>
 			</div>
 			<!--content wrapper ends-->
 			<!--footer starts-->
