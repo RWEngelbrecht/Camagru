@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 // include("config/setup.php");
-include "../config/connect.php";
+include "../includes/connect.php";
 include "../functions/functions.php";
 ini_set("display_errors", true);
 session_start();
@@ -17,11 +17,11 @@ session_start();
 	</head>
 	<body>
 		<header>
+			<a href="../index.php">
+				<img id="banner" src="../images/rengelbr_logo.png">
+			</a>
 			<div class="menubar">
 			<!--Navigation bar-->
-				<a href="index.php">
-					<img id="banner" src="../images/rengelbr_logo.png">
-				</a>
 				<div class="nav_bar">
 					<ul id="my_acc_menu">
 						<li><a href="../index.php">Home</a></li>
@@ -34,17 +34,31 @@ session_start();
 <!--content wrapper starts-->
 			<div class="content_wrapper">
 				<?php
-					if (isset($_SESSION['user_id'])) {
-						if (verif_user($_SESSION['user_id']))
-							echo "<h2>Welcome, ".$_SESSION['user_name']."</h2>";
-						else
-							echo "<h2>You're not supposed to be here!</h2>";
-					}
-					else {
-						echo "<h2>Welcome, whoever you are! Please log in or register.</h2>";
-					}
+					// if (isset($_SESSION['user_id'])) {
+					// 	if (verif_user($_SESSION['user_id']))
+					// 		echo "<h2 >Welcome, ".$_SESSION['user_name']."</h2>";
+					// 	else
+					// 		echo "<h2>You're not supposed to be here!</h2>";
+					// }
+					// else {
+					// 	echo "<h2>Welcome, whoever you are! Please log in or register.</h2>";
+					// }
 				?>
-				
+				<div class="account_tools">
+					<?php
+						$get_udata = $con->prepare("SELECT user_image FROM users WHERE user_email=?");
+						$get_udata->execute([$_SESSION['user_email']]);
+						$u_data = $get_udata->fetch();
+						$u_img = $u_data['user_image'];
+						echo "<img src='client_images/$u_img' />";
+					?>
+					<ul>
+						<li></li>
+					</ul>
+				</div>
+				<div id="gallery">
+
+				</div>
 			</div>
 <!--content wrapper ends-->
 <!--footer starts-->
