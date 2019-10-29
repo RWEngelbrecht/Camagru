@@ -11,16 +11,18 @@ try {
 	`user_passwd` VARCHAR(255) NOT NULL,
 	`user_email` VARCHAR(255) NOT NULL,
 	`user_contact` VARCHAR(100) NOT NULL,
-	`user_image` LONGBLOB,
+	`user_image` LONGTEXT,
 	`token` VARCHAR(255) NOT NULL,
 	`verified` BIT default 0 NOT NULL)";
 
 	$con->exec($usr);
 
 	$img = "CREATE TABLE IF NOT EXISTS images(
-		`u_id` INT(100) PRIMARY KEY,
-		`image` LONGBLOB,
+		`id` INT(100) AUTO_INCREMENT PRIMARY KEY,
+		`u_id` INT(100) NOT NULL,
+		`img_name` LONGTEXT,
 		`date_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+		// FOREIGN KEY (u_id) REFERENCES users(user_id)";
 
 	$con->exec($img);
 }
