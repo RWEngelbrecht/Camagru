@@ -116,11 +116,13 @@ toggle between hiding and showing the dropdown content */
 		$u_passwd = hash('whirlpool', $_POST['u_passwd']);
 		validate_password($_POST['u_passwd']);
 
+		// $u_image = $_FILES['u_image']['name'];
+		// // $img_type = $_FILES['u_image']['type'];
+		// $u_image_tmp = $_FILES['u_image']['tmp_name'];
+		// $img_data = file_get_contents($u_image_tmp);
+		// // $put_img = $con->prepare();
 		$u_image = $_FILES['u_image']['name'];
-		// $img_type = $_FILES['u_image']['type'];
-		$u_image_tmp = $_FILES['u_image']['tmp_name'];
-		$img_data = file_get_contents($u_image_tmp);
-		// $put_img = $con->prepare();
+		$u_image_tmp = base64_encode(file_get_contents($_FILES['u_image']['tmp_name']));
 		move_uploaded_file($u_image_tmp, "client/client_images/$u_image");
 
 		$u_contact = $_POST['u_contact'];
@@ -136,7 +138,7 @@ toggle between hiding and showing the dropdown content */
 //execute insert query  ///make seperate function
 			$sql = "INSERT INTO users (`user_name`, `user_passwd`, `user_email`, `user_contact`, `user_image`, `token`) VALUES (:u_name, :u_passwd, :u_email, :u_contact, :u_image, :ver_code)";
 			$insert_data = $con->prepare($sql);
-			$insert_data->execute(array(':u_name'=>$u_name, ':u_passwd'=>$u_passwd,':u_email'=>$u_email,':u_contact'=>$u_contact,':u_image'=>$u_image,':ver_code'=>$ver_code));
+			$insert_data->execute(array(':u_name'=>$u_name, ':u_passwd'=>$u_passwd,':u_email'=>$u_email,':u_contact'=>$u_contact,':u_image'=>$u_image_tmp,':ver_code'=>$ver_code));
 
 //save session vars for later use   ///make seperate funct
 			$_SESSION['user_email'] = $u_email;
