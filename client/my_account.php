@@ -25,6 +25,7 @@ session_start();
 				<div class="nav_bar">
 					<ul id="my_acc_menu">
 						<li><a href="../index.php">Home</a></li>
+						<li><a href='new_upload.php'>New Upload</a></li>
 						<li><a href="my_account.php?session_status=logout">Log Out</a></li>
 					</ul>
 				</div>
@@ -50,7 +51,7 @@ session_start();
 						$get_udata->execute([$_SESSION['user_email']]);
 						$u_data = $get_udata->fetch();
 						$u_img = $u_data['user_image'];
-						echo "<img src='client_images/$u_img' />";
+						echo "<img src='data:image/png;base64,".$u_img."' />";
 					?>
 					<ul>
 						<li></li>
