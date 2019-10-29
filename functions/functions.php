@@ -58,6 +58,7 @@ function get_menu() {
 		if (verif_user($_SESSION['user_id'])) {
 			echo "<ul id='my_acc_menu'>
 					<li><a href='index.php'>Home</a></li>
+					<li><a href='new_upload.php'>New Upload</a></li>
 					<li><a href='client/my_account.php?user=".hash('whirlpool',$_SESSION['user_name'])."'>My Account</a></li>
 					<li><a href='index.php?session_status=logout'>Log Out</a></li>
 					</ul>";
@@ -142,9 +143,8 @@ function reset_passwd() {
 		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 		if (mail($u_email,$subject,$body,$headers))
 			return true;
-		else
-			return false;
 	}
+	return false;
 }
 
 function replace_passwd($new_passwd, $verif_key) {
@@ -164,6 +164,34 @@ function replace_passwd($new_passwd, $verif_key) {
 		return true;
 	else
 		return false;
+}
+
+//gets and displays images uploaded by all users
+function get_gallery() {
+	include 'includes/connect.php';
+
+	$get_imgs = "SELECT * FROM images ORDER BY date_created";
+	$exe_imgs = $con->prepare($get_imgs);
+	$exe_imgs->execute();
+
+	while ($image = $exe_imgs->fetch()) {
+		$img_name = $image['img_name'];
+		echo "<img src='client/uploads/$img_name' />";
+	}
+}
+
+function upload_image($user) {
+	include 'includes/connect.php';
+
+	if (!empty($user)) {
+		$upl_img_name = $_FILES['upl_image']['name'];
+		$upl_img_tmp = base64_encode(file_get_contents($_FILES['upl_image']['tmp_name']));
+		move_uploaded_file($u_image_tmp, "client/uploads/$upl_img_name");
+
+		$upload_sql = "INSERT INTO images(u_id, img_name) VALUES(:u_id, :img)";
+		$upload_image = $con->prepare($upload_sql);
+		$upload_image->execute(array(':u_id'=>$user, ':img'=>$upl_img_tmp));
+	}
 }
 
 ?>
