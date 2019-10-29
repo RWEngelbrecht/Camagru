@@ -129,6 +129,18 @@ body {
 	font-weight:bolder;
 }
 
+#upload_main {
+	width: 70%;
+	float: left;
+	background: grey;
+}
+
+#upload_side {
+	width: 25%;
+	float:right;
+	background: grey;
+}
+
 #my_acc_menu {
 	padding: 0px;
 	margin-top: -2px;
