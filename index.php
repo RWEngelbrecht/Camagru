@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
 include("config/setup.php");
-include "config/connect.php";
 include "functions/functions.php";
 ini_set("display_errors", true);
 session_start();
@@ -48,12 +47,12 @@ toggle between hiding and showing the dropdown content */
 			</div>
 		</header>
 		<div class="main_wrapper">
-			<!--Navigation bar-->
-
 			<!--content wrapper starts-->
 			<div class="content_wrapper">
 				<div class="gallery">
-
+					<?php
+						get_gallery();
+					?>
 				</div>
 			</div>
 			<!--content wrapper ends-->
@@ -67,10 +66,6 @@ toggle between hiding and showing the dropdown content */
 </html>
 <?php
 if (isset($_GET['session_status'])) {
-	// if ($_GET['session_status'] == "logout") {
-	// 	session_destroy();
-	// 	echo "<script>window.open('index.php', '_self')</script>";
-	// }
 	log_out("index");
 }
 ?>
