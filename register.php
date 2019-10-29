@@ -123,7 +123,7 @@ toggle between hiding and showing the dropdown content */
 		// // $put_img = $con->prepare();
 		$u_image = $_FILES['u_image']['name'];
 		$u_image_tmp = base64_encode(file_get_contents($_FILES['u_image']['tmp_name']));
-		move_uploaded_file($u_image_tmp, "client/client_images/$u_image");
+		// move_uploaded_file($u_image_tmp, "client/client_images/$u_image");
 
 		$u_contact = $_POST['u_contact'];
 		$ver_code = hash('whirlpool', time().$u_email);

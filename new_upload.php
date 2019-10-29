@@ -53,10 +53,10 @@ toggle between hiding and showing the dropdown content */
 					<div id="upload_main">
 						<!-- Should show webcam, webcam button, upload img button-->
 						<h1>upload main</h1>
-						<form action="new_upload" enctype="multipart/form-data" method="POST">
+						<form action="new_upload.php" enctype="multipart/form-data" method="POST">
 							<input name="upl_image" type="file">
 							<input name="upload" type="submit" value="Upload Picture">
-							<?php //if (isset($_POST['upload'])){upload_image($_SESSION['user_id']);} ?>
+							<?php if (isset($_POST['upload'])){upload_image($_SESSION['user_id']);} ?>
 						</form>
 					</div>
 					<div id="upload_side">

@@ -78,6 +78,7 @@ session_start();
 			<!--content wrapper starts-->
 			<div class="content_wrapper">
 				<?php
+		//checks if user is already verified or if user exists. Redundancy can be safer.
 					if (isset($_GET['ver_key'])) {
 						$get_user = $con->prepare("SELECT * FROM users WHERE token=?");
 						$get_user->execute([$_GET['ver_key']]);

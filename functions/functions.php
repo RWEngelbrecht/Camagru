@@ -55,14 +55,14 @@ function verif_user($user_id) {
 function get_menu() {
 	if (isset($_SESSION['user_id']))
 	{
-		if (verif_user($_SESSION['user_id'])) {
+		// if (verif_user($_SESSION['user_id'])) {
 			echo "<ul id='my_acc_menu'>
 					<li><a href='index.php'>Home</a></li>
 					<li><a href='new_upload.php'>New Upload</a></li>
 					<li><a href='client/my_account.php?user=".hash('whirlpool',$_SESSION['user_name'])."'>My Account</a></li>
 					<li><a href='index.php?session_status=logout'>Log Out</a></li>
 					</ul>";
-		}
+		// }
 	}
 	else {
 		echo "<ul id='menu'>
@@ -176,7 +176,7 @@ function get_gallery() {
 
 	while ($image = $exe_imgs->fetch()) {
 		$img_name = $image['img_name'];
-		echo "<img src='client/uploads/$img_name' />";
+		echo "<img src='data:image/png;base64,".$img_name."' />";
 	}
 }
 
@@ -186,7 +186,7 @@ function upload_image($user) {
 	if (!empty($user)) {
 		$upl_img_name = $_FILES['upl_image']['name'];
 		$upl_img_tmp = base64_encode(file_get_contents($_FILES['upl_image']['tmp_name']));
-		move_uploaded_file($u_image_tmp, "client/uploads/$upl_img_name");
+		// move_uploaded_file($upl_image_tmp, "client/uploads/$upl_img_name");
 
 		$upload_sql = "INSERT INTO images(u_id, img_name) VALUES(:u_id, :img)";
 		$upload_image = $con->prepare($upload_sql);
@@ -194,4 +194,127 @@ function upload_image($user) {
 	}
 }
 
+function update_user($user_id) {
+
+	if ($_GET['update'] == 'username') {
+		echo "<form method='POST' action=''><table>
+				<tr align='center'>
+					<td colspan='6' style='padding:15px; color:white;'><h2>Update your Account</h2></td>
+				</tr>
+				<tr>
+					<td align='right' style='padding:15px; color:white;''>New Name: </td>
+					<td><input type='text' name='new_name' required/></td>
+				</tr>
+				<tr align='center'>
+					<td colspan='6' style='padding:15px'><input type='submit' name='updt_name' value='Update Name'/></td>
+				</tr>
+				</table></form>";
+		if (isset($_POST['updt_name'])) {
+			validate_name($_POST['new_name']);
+			update_name($user_id, $_POST['new_name']);
+			echo "<script>window.open('my_account.php', '_self')</script>";
+		}
+	}
+	if ($_GET['update'] == 'email') {
+		echo "<form method='POST' action=''><table>
+				<tr align='center'>
+					<td colspan='6' style='padding:15px; color:white;'><h2>Update your Account</h2></td>
+				</tr>
+				<tr>
+					<td align='right' style='padding:15px; color:white;''>New E-mail: </td>
+					<td><input type='text' name='new_email' required/></td>
+				</tr>
+				<tr align='center'>
+					<td colspan='6' style='padding:15px'><input type='submit' name='updt_email' value='Update E-mail'/></td>
+				</tr>
+				</table></form>";
+		if (isset($_POST['updt_email'])) {
+			validate_email($_POST['new_email']);
+			update_email($user_id, $_POST['new_email']);
+			echo "<script>window.alert('An email has been sent to ".$u_email.". Follow the instructions to verify your account.')</script>";
+			echo "<script>window.open('my_account.php', '_self')</script>";
+		}
+	}
+	if ($_GET['update'] == 'passwd') {
+		echo "<form method='POST' action=''><table>
+				<tr align='center'>
+					<td colspan='6' style='padding:15px; color:white;'><h2>Update your Account</h2></td>
+				</tr>
+				<tr>
+					<td align='right' style='padding:15px; color:white;''>New Password: </td>
+					<td><input type='password' name='new_passwd' required/></td>
+				</tr>
+				<tr align='center'>
+					<td colspan='6' style='padding:15px'><input type='submit' name='updt_passwd' value='Update Password'/></td>
+				</tr>
+				</table></form>";
+		if (isset($_POST['updt_passwd'])) {
+			validate_password($_POST['new_passwd']);
+			update_passwd($user_id, hash('whirlpool',$_POST['new_passwd']));
+			echo "<script>window.open('my_account.php', '_self')</script>";
+		}
+	}
+	if ($_GET['update'] == 'image') {
+		echo "<form method='POST' action='' enctype='multipart/form-data'><table>
+				<tr align='center'>
+					<td colspan='6' style='padding:15px; color:white;'><h2>Update your Account</h2></td>
+				</tr>
+				<tr>
+					<td align='right' style='padding:15px; color:white;''>New Image: </td>
+					<td><input type='file' name='new_image' required/></td>
+				</tr>
+				<tr align='center'>
+					<td colspan='6' style='padding:15px'><input type='submit' name='updt_image' value='Update Image'/></td>
+				</tr>
+				</table></form>";
+		if (isset($_POST['updt_image'])) {
+			// validate_image($_POST['new_image']);
+			$new_img_tmp = base64_encode(file_get_contents($_FILES['new_image']['tmp_name']));
+			update_image($user_id, $new_img_tmp);
+			echo "<script>window.open('my_account.php', '_self')</script>";
+		}
+	}
+}
+
+function update_name($user_id, $new_name) {
+	include '../includes/connect.php';
+
+	if (isset($_POST['updt_name'])) {
+		$updt_sql = "UPDATE users SET user_name=:u_name WHERE user_id=:u_id";
+		$updt_name = $con->prepare($updt_sql);
+		$updt_name->execute(array(':u_name'=>$new_name, ':u_id'=>$user_id));
+		$_SESSION['user_name'] = $new_name;
+	}
+}
+
+function update_email($user_id, $new_email) {
+	include '../includes/connect.php';
+
+	if (isset($_POST['updt_email'])) {
+		$updt_sql = "UPDATE users SET user_email=:u_email, verified=0 WHERE user_id=:u_id";
+		$updt_email = $con->prepare($updt_sql);
+		$updt_email->execute(array(':u_email'=>$new_email, ':u_id'=>$user_id));
+		$_SESSION['user_email'] = $new_email;
+		$new_verif = hash('whirlpool', time().$new_email);
+		verif_email($new_email, $new_verif);
+	}
+}
+function update_passwd($user_id, $new_passwd) {
+	include '../includes/connect.php';
+
+	if (isset($_POST['updt_passwd'])) {
+		$updt_sql = "UPDATE users SET user_passwd=:u_passwd WHERE user_id=:u_id";
+		$updt_passwd = $con->prepare($updt_sql);
+		$updt_passwd->execute(array(':u_passwd'=>$new_passwd, ':u_id'=>$user_id));
+	}
+}
+function update_image($user_id, $new_image) {
+	include '../includes/connect.php';
+
+	if (isset($_POST['updt_image'])) {
+		$updt_sql = "UPDATE users SET user_image=:u_image WHERE user_id=:u_id";
+		$updt_image = $con->prepare($updt_sql);
+		$updt_image->execute(array(':u_image'=>$new_image, ':u_id'=>$user_id));
+	}
+}
 ?>

@@ -45,20 +45,28 @@ session_start();
 					// 	echo "<h2>Welcome, whoever you are! Please log in or register.</h2>";
 					// }
 				?>
-				<div class="account_tools">
+				<div id="account_tools">
 					<?php
-						$get_udata = $con->prepare("SELECT user_image FROM users WHERE user_email=?");
+						$get_udata = $con->prepare("SELECT * FROM users WHERE user_email=?");
 						$get_udata->execute([$_SESSION['user_email']]);
 						$u_data = $get_udata->fetch();
 						$u_img = $u_data['user_image'];
 						echo "<img src='data:image/png;base64,".$u_img."' />";
 					?>
 					<ul>
-						<li></li>
+						<li>
+							<a href="my_account.php?session_status=update">Update Account</a>
+						</li>
 					</ul>
 				</div>
-				<div id="gallery">
-
+				<div id="account_gallery">
+						<h2>Cage Time!</h2>
+					<?php
+						if (isset($_GET['session_status'])){include 'update_account.php';}
+						if (isset($_GET['update'])){
+							update_user($u_data['user_id']);
+						}
+					?>
 				</div>
 			</div>
 <!--content wrapper ends-->
@@ -72,10 +80,6 @@ session_start();
 </html>
 <?php
 if (isset($_GET['session_status'])) {
-	// if ($_GET['session_status'] == "logout") {
-	// 	session_destroy();
-	// 	echo "<script>window.open('../index.php', '_self')</script>";
-	// }
 	log_out("my_account");
 }
 ?>
