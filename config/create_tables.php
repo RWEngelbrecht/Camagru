@@ -18,11 +18,10 @@ try {
 	$con->exec($usr);
 
 	$img = "CREATE TABLE IF NOT EXISTS images(
-		`id` INT(100) AUTO_INCREMENT PRIMARY KEY,
-		`u_id` INT(100) NOT NULL,
+		`img_id` INT(100) AUTO_INCREMENT PRIMARY KEY,
+		`u_id` INT(100) NOT NULL REFERENCES users(user_id),
 		`img_name` LONGTEXT,
 		`date_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-		// FOREIGN KEY (u_id) REFERENCES users(user_id)";
 
 	$con->exec($img);
 }
