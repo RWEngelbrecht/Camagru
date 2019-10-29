@@ -170,7 +170,7 @@ function replace_passwd($new_passwd, $verif_key) {
 function get_gallery() {
 	include 'includes/connect.php';
 
-	$get_imgs = "SELECT * FROM images ORDER BY date_created";
+	$get_imgs = "SELECT * FROM images ORDER BY date_created DESC";
 	$exe_imgs = $con->prepare($get_imgs);
 	$exe_imgs->execute();
 
