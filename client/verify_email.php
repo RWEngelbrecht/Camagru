@@ -11,41 +11,23 @@ session_start();
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="../styles/index.css" media="all" />
-		<title>Camagru</title>
-		<script>
-			/* When the user clicks on the button,
-			toggle between hiding and showing the dropdown content */
-			function myFunction() {
-				document.getElementById("myDropdown").classList.toggle("show");
-			}
-
-			// Close the dropdown if the user clicks outside of it
-			window.onclick = function(event) {
-				if (!event.target.matches('.dropbtn')) {
-					var dropdowns = document.getElementsByClassName("dropdown-content");
-					var i;
-					for (i = 0; i < dropdowns.length; i++) {
-						var openDropdown = dropdowns[i];
-						if (openDropdown.classList.contains('show')) {
-							openDropdown.classList.remove('show');
-						}
-					}
-				}
-			}
-		</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Rigardt Engelbrecht">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+		<title>Camagru - Email Verified</title>
 	</head>
 	<body>
 		<header>
-			<div class="menubar">
-				<a href="index.php">
-					<img id="banner" src="../images/rengelbr_logo.png">
-				</a>
-			</div>
-			<div class="nav_bar">
-				<ul id="my_acc_menu">
-					<li><a href="../index.php">Home</a></li>
-				</ul>
+			<div class="navbar">
+				<div class="navbar-brand">
+					<a href="index.php">
+						<img id="banner" src="../images/rengelbr_logo.png">
+					</a>
+					<?php
+						get_menu();
+					?>
+				</div>
 			</div>
 		</header>
 		<div class="main_wrapper">
