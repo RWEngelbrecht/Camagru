@@ -9,79 +9,52 @@ session_start();
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Rigardt Engelbrecht">
-		<link rel="stylesheet" href="styles/index.css" media="all" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 		<title>Camagru - Login</title>
-		<script>
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-			function myFunction() {
-			document.getElementById("myDropdown").classList.toggle("show");
-			}
-
-// Close the dropdown if the user clicks outside of it
-			window.onclick = function(event) {
-				if (!event.target.matches('.dropbtn')) {
-					var dropdowns = document.getElementsByClassName("dropdown-content");
-					var i;
-					for (i = 0; i < dropdowns.length; i++) {
-						var openDropdown = dropdowns[i];
-						if (openDropdown.classList.contains('show')) {
-							openDropdown.classList.remove('show');
-						}
-					}
-				}
-			}
-		</script>
 	</head>
 	<body>
 		<header>
-			<div class="menubar">
-				<a href="index.php">
-					<img id="banner" src="images/rengelbr_logo.png">
-				</a>
-				<div class="nav_bar">
-					<ul id="menu">
-							<li><a href="index.php">Home</a></li>
-					</ul>
-					<div class="dropdown">
-						<button onclick="myFunction()" class="dropbtn">Login - Register</button>
-						<div id="myDropdown" class="dropdown-content">
-							<a href="login.php">Login</a>
-							<a href="register.php">Register</a>
-						</div>
-					</div>
+			<div class="navbar">
+				<div class="navbar-brand">
+					<a href="index.php">
+						<img id="banner" src="images/rengelbr_logo.png">
+					</a>
+					<?php
+						get_menu();
+					?>
 				</div>
 			</div>
 		</header>
-		<div class="main_wrapper">
-<!--Navigation bar-->
-			<div class="menubar">
-			</div>
+		<section class="section">
 <!--content wrapper starts-->
-			<div class="content_wrapper">
+			<div class="container">
 	<!-- login form -->
 				<form method="POST" action="login.php">
-					<table>
-						<tr align="center">
-							<td colspan="3"><h2 style="color:white;margin:10px">Welcome Back</h2></td>
-						</tr>
-						<tr>
-							<td align="right" style="color:white;padding:15px">Email:</td>
-							<td><input type="text" name="user_email" placeholder="email" required/></td>
-						</tr>
-						<tr>
-							<td align="right" style="color:white;padding:15px">Password:</td>
-							<td><input type="password" name="user_passwd" placeholder="password" required/></td>
-						</tr>
-						<tr>
-							<td align="right" colspan="3" style="font-size:12px;padding:0px 90px 5px"><a href="client/forgot_passwd.php">Forgot Password?</a></td>
-						</tr>
-						<tr align="center">
-							<td colspan="3"><input type="submit" name="login" value="Log In"/></td>
-						</tr>
-					</table>
+					<div class="field">
+						<label class="label">Log In</label>
+						<p class="control has-icons-left">
+							<input class="input is-medium" type="email" name="user_email" placeholder="email" required/>
+							<span class="icon is-small is-left">
+								<i class="fas fa-envelope"></i>
+							</span>
+						</p>
+					</div>
+					<div class="field">
+						<p class="control has-icons-left">
+							<input class="input is-medium" type="password" name="user_passwd" placeholder="password" required/>
+							<span class="icon is-small is-left">
+								<i class="fas fa-lock"></i>
+							</span>
+						</p>
+					</div>
+					<div class="field">
+						<p class="control">
+							<input class="button is-success" type="submit" name="login" value="Login">
+						</p>
+					</div>
 				</form>
 				<?php
 					if (isset($_POST['login'])) {
@@ -89,6 +62,7 @@ toggle between hiding and showing the dropdown content */
 					}
 				?>
 			</div>
+		</section>
 			<!--content wrapper ends-->
 			<!--footer starts-->
 			<div id="footer">
