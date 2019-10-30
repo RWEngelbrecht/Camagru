@@ -8,52 +8,52 @@ session_start();
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Rigardt Engelbrecht">
-		<link rel="stylesheet" href="styles/index.css" media="all" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 		<title>Camagru</title>
-		<script>
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-			function myFunction() {
-				document.getElementById("myDropdown").classList.toggle("show");
-			}
-// Close the dropdown if the user clicks outside of it
-			window.onclick = function(event) {
-				if (!event.target.matches('.dropbtn')) {
-					var dropdowns = document.getElementsByClassName("dropdown-content");
-					var i;
-					for (i = 0; i < dropdowns.length; i++) {
-						var openDropdown = dropdowns[i];
-						if (openDropdown.classList.contains('show')) {
-							openDropdown.classList.remove('show');
-						}
-					}
-				}
-			}
-		</script>
 	</head>
 	<body>
 		<header>
-			<div class="menubar">
-				<a href="index.php">
-					<img id="banner" src="images/rengelbr_logo.png">
-				</a>
-				<div class="nav_bar">
+			<div class="navbar">
+				<div class="navbar-brand">
+					<a href="index.php">
+						<img id="banner" src="images/rengelbr_logo.png">
+					</a>
+				<!-- </div> -->
+				<!-- <div class="navbar-menu"> -->
 					<?php
 						get_menu();
 					?>
 				</div>
 			</div>
 		</header>
-		<div class="main_wrapper">
+		<section class="section">
 			<!--content wrapper starts-->
-			<div class="content_wrapper">
+			<div class="container">
 				<div class="gallery">
 					<?php
 						get_gallery();
 					?>
 				</div>
+			</div>
+		</section>
+				<nav class="pagination" role="navigation" aria-label="pagination">
+				<a class="pagination-previous" title="This is the first page" disabled>Previous</a>
+				<a class="pagination-next">Next page</a>
+				<ul class="pagination-list">
+				<li>
+					<a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
+				</li>
+				<li>
+					<a class="pagination-link" aria-label="Goto page 2">2</a>
+				</li>
+				<li>
+					<a class="pagination-link" aria-label="Goto page 3">3</a>
+				</li>
+				</ul>
+			</nav>
 			</div>
 			<!--content wrapper ends-->
 			<!--footer starts-->
@@ -66,6 +66,8 @@ toggle between hiding and showing the dropdown content */
 </html>
 <?php
 if (isset($_GET['session_status'])) {
-	log_out("index");
+	if ($_GET['session_status'] == "logout") {
+		log_out("index");
+	}
 }
 ?>
