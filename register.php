@@ -8,35 +8,15 @@ session_start();
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Rigardt Engelbrecht">
-		<link rel="stylesheet" href="styles/index.css" media="all" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 		<title>Camagru - Register</title>
-		<script>
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-				function myFunction() {
-					document.getElementById("myDropdown").classList.toggle("show");
-				}
-
-// Close the dropdown if the user clicks outside of it
-				window.onclick = function(event) {
-					if (!event.target.matches('.dropbtn')) {
-						var dropdowns = document.getElementsByClassName("dropdown-content");
-						var i;
-						for (i = 0; i < dropdowns.length; i++) {
-							var openDropdown = dropdowns[i];
-							if (openDropdown.classList.contains('show')) {
-								openDropdown.classList.remove('show');
-							}
-						}
-					}
-				}
-		</script>
 	</head>
 	<body>
 		<header>
-			<div class="menubar">
+			<!-- <div class="menubar">
 				<a href="index.php">
 					<img id="banner" src="images/rengelbr_logo.png">
 				</a>
@@ -52,46 +32,64 @@ toggle between hiding and showing the dropdown content */
 						</div>
 					</div>
 				</div>
+			</div> -->
+			<div class="navbar">
+				<div class="navbar-brand">
+					<a href="index.php">
+						<img id="banner" src="images/rengelbr_logo.png">
+					</a>
+					<?php
+						get_menu();
+					?>
+				</div>
 			</div>
 		</header>
-		<div class="main_wrapper">
-<!--Navigation bar-->
-			<div class="menubar">
-
-			</div>
-<!--content wrapper starts-->
-			<div class="content_wrapper">
+		<section class="section">
+			<div class="container">
 				<form action="register.php" method="POST" enctype="multipart/form-data">
-					<table align="center">
-						<tr align="center">
-							<td colspan="6" style="padding:15px; color:white;"><h2>Create your Account</h2></td>
-						</tr>
-						<tr>
-							<td align="right" style="padding:15px; color:white;">Name: </td>
-							<td><input type="text" name="u_name" required/></td>
-						</tr>
-						<tr>
-							<td align="right" style="padding:15px; color:white;">E-mail: </td>
-							<td><input type="text" name="u_email" required/></td>
-						</tr>
-						<tr>
-							<td align="right" style="padding:15px; color:white;">Password: </td>
-							<td><input type="password" name="u_passwd" required/></td>
-						</tr>
-						<tr>
-							<td align="right" style="padding:15px; color:white;">Image: </td>
-							<td><input type="file" name="u_image" required/></td>
-						</tr>
-						<tr>
-							<td align="right" style="padding:15px; color:white;">Contact Number: </td>
-							<td><input type="text" name="u_contact" required/></td>
-						</tr>
-						<tr align="center" >
-							<td colspan="6" style="padding:15px"><input type="submit" name="register" value="Register"/></td>
-						</tr>
-					</table>
+					<div class="field">
+						<label class="label">Name</label>
+						<p class="control has-icons-left">
+							<input class="input is-medium" type="text" name="u_name" placeholder="Choose a username" required/>
+							<span class="icon is-small is-left">
+								<i class="fas fa-user"></i>
+							</span>
+						</p>
+					</div>
+					<div class="field">
+						<label class="label">Email</label>
+						<p class="control has-icons-left">
+							<input class="input is-medium" type="email" name="u_email" placeholder="Enter an email address" required/>
+							<span class="icon is-small is-left">
+								<i class="fas fa-envelope"></i>
+							</span>
+						</p>
+					</div>
+					<div class="field">
+						<label class="label">Password</label>
+						<p class="control has-icons-left">
+							<input class="input is-medium" type="password" name="u_passwd" placeholder="Password" required/>
+							<span class="icon is-small is-left">
+								<i class="fas fa-lock"></i>
+							</span>
+						</p>
+					</div>
+					<div class="field">
+						<label class="label">Profile Picture</label>
+						<div class="file has-name">
+							<label class="file-label">
+								<input class="input is-medium" type="file" name="u_image" placeholder="" required/>
+							</label>
+						</div>
+					</div>
+					<div class="field">
+						<p class="control">
+							<input class="button is-success" type="submit" name="register" value="Register">
+						</p>
+					</div>
 				</form>
 			</div>
+		</section>
 <!--content wrapper ends-->
 <!--footer starts-->
 			<div id="footer">
@@ -125,7 +123,6 @@ toggle between hiding and showing the dropdown content */
 		$u_image_tmp = base64_encode(file_get_contents($_FILES['u_image']['tmp_name']));
 		// move_uploaded_file($u_image_tmp, "client/client_images/$u_image");
 
-		$u_contact = $_POST['u_contact'];
 		$ver_code = hash('whirlpool', time().$u_email);
 //check if user email exists in db
 		$check = $con->prepare("SELECT * FROM users WHERE user_email=?");
@@ -136,9 +133,9 @@ toggle between hiding and showing the dropdown content */
 		}
 		else {
 //execute insert query  ///make seperate function
-			$sql = "INSERT INTO users (`user_name`, `user_passwd`, `user_email`, `user_contact`, `user_image`, `token`) VALUES (:u_name, :u_passwd, :u_email, :u_contact, :u_image, :ver_code)";
+			$sql = "INSERT INTO users (`user_name`, `user_passwd`, `user_email`, `user_image`, `token`) VALUES (:u_name, :u_passwd, :u_email, :u_image, :ver_code)";
 			$insert_data = $con->prepare($sql);
-			$insert_data->execute(array(':u_name'=>$u_name, ':u_passwd'=>$u_passwd,':u_email'=>$u_email,':u_contact'=>$u_contact,':u_image'=>$u_image_tmp,':ver_code'=>$ver_code));
+			$insert_data->execute(array(':u_name'=>$u_name, ':u_passwd'=>$u_passwd,':u_email'=>$u_email,':u_image'=>$u_image_tmp,':ver_code'=>$ver_code));
 
 //save session vars for later use   ///make seperate funct
 			$_SESSION['user_email'] = $u_email;
