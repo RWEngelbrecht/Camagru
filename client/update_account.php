@@ -45,7 +45,7 @@
 	<div class="field has-addons">
 		<div class="file has-name">
 			<label class="file-label">
-				<input class="input is-medium" type="file" name="u_image" placeholder="" required/>
+				<input class="input is-medium" type="file" name="new_image" placeholder="" required/>
 			</label>
 		</div>
 		<div class="control" >
