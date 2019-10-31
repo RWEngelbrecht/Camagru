@@ -139,7 +139,7 @@ function reset_passwd() {
 	$get_udata->execute([$u_email]);
 	$user_data = $get_udata->fetch();
 
-	if (verif_user($user_data['user_id'])) {
+	// if (verif_user($user_data['user_id'])) {
 
 		$ver_code = hash('whirlpool', time().$u_email);
 		$updt_verif = $con->prepare('UPDATE users SET token=:ver_code WHERE user_email=:u_email');
@@ -151,7 +151,7 @@ function reset_passwd() {
 		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 		if (mail($u_email,$subject,$body,$headers))
 			return true;
-	}
+	// }
 	return false;
 }
 
@@ -325,11 +325,15 @@ function update_email($user_id, $new_email) {
 	include '../includes/connect.php';
 
 	if (isset($_POST['updt_email'])) {
-		$updt_sql = "UPDATE users SET user_email=:u_email, verified=0 WHERE user_id=:u_id";
-		$updt_email = $con->prepare($updt_sql);
-		$updt_email->execute(array(':u_email'=>$new_email, ':u_id'=>$user_id));
 		$_SESSION['user_email'] = $new_email;
 		$new_verif = hash('whirlpool', time().$new_email);
+
+		$updt_sql = "UPDATE users SET user_email=:u_email, verified=0, token=:new_verif WHERE user_id=:u_id";
+		$updt_email = $con->prepare($updt_sql);
+		$updt_email->execute(array(':u_email'=>$new_email, ':new_verif'=>$new_verif,':u_id'=>$user_id));
+
+
+
 		verif_email($new_email, $new_verif);
 	}
 }
