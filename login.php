@@ -17,6 +17,7 @@ session_start();
 	</head>
 	<body>
 		<header>
+<!-- navigation bar -->
 			<div class="navbar">
 				<div class="navbar-brand">
 					<a href="index.php">
@@ -50,12 +51,20 @@ session_start();
 							</span>
 						</p>
 					</div>
-					<div class="field">
-						<p class="control">
-							<input class="button is-success" type="submit" name="login" value="Login">
-						</p>
-					</div>
+					<div class="columns">
+						<div class="column">
+							<div class="field">
+								<p class="control">
+									<input class="button is-success" type="submit" name="login" value="Login">
+								</p>
+							</div>
+						</div>
 				</form>
+<!-- Forgot password? You pleb. xD -->
+						<div class="column is-one-fifth">
+							<a href="client/forgot_passwd.php">Forgot Password?</a>
+						</div>
+					</div>
 				<?php
 					if (isset($_POST['login'])) {
 						log_in();
@@ -63,8 +72,7 @@ session_start();
 				?>
 			</div>
 		</section>
-			<!--content wrapper ends-->
-			<!--footer starts-->
+		<!--footer starts-->
 			<div id="footer">
 				<h2 style="text-align:center; padding-top:30px;">&#169; rengelbr</h2>
 			</div>
