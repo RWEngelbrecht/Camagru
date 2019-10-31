@@ -30,35 +30,8 @@ session_start();
 				</div>
 			</div>
 		</header>
-		<div class="main_wrapper">
-			<!--Navigation bar -->
-			<!-- <div class="menubar">-->
-			<?php
-					// if (isset($_SESSION['user_id']))
-					// {
-					// 	if (verif_user($_SESSION['user_id']))
-					// 		echo "<ul id='my_acc_menu'>
-					// 				<li><a href='../index.php'>Home</a></li>
-					// 				<li><a href='../client/my_account.php?user=".$_SESSION['user_id']."'>My Account</a></li>
-					// 				<li><a href='../index.php?session_status=logout'>Log Out</a></li>
-					// 				</ul>";
-					// }
-					// else {
-					// 	echo "<ul id='menu'>
-					// 			<li><a href='../index.php'>Home</a></li>
-					// 			</ul>
-					// 			<div class='dropdown'>
-					// 			<button onclick='myFunction()' class='dropbtn'>Login - Register</button>
-					// 			<div id='myDropdown' class='dropdown-content'>
-					// 				<a href='../login.php'>Login</a>
-					// 				<a href='../register.php'>Register</a>
-					// 			</div>
-					// 		</div>";
-					// }
-				?>
-			</div>
-			<!--content wrapper starts-->
-			<div class="content_wrapper">
+		<section class="section">
+			<div class="container">
 				<?php
 		//checks if user is already verified or if user exists. Redundancy can be safer.
 					if (isset($_GET['ver_key'])) {
@@ -85,7 +58,7 @@ session_start();
 								$_SESSION['user_name'] = $user['user_name'];
 								$_SESSION['user_email'] = $user['user_email'];
 								$_SESSION['user_id'] = $user['user_id'];
-								echo "<h2>You have successfully registered. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php?'>here</a>.</h2>";
+								echo "<h2>Your account is verified. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php?'>here</a>.</h2>";
 						}
 					}
 					else {
@@ -94,6 +67,7 @@ session_start();
 
 				?>
 			</div>
+		</section>
 			<!--content wrapper ends-->
 			<!--footer starts-->
 			<div id="footer">
