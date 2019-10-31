@@ -9,61 +9,28 @@ session_start();
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="author" content="Rigardt Engelbrecht">
-		<link rel="stylesheet" href="styles/index.css" media="all" />
-		<title>Camagru - Login</title>
-		<script>
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-			function myFunction() {
-			document.getElementById("myDropdown").classList.toggle("show");
-			}
-
-// Close the dropdown if the user clicks outside of it
-			window.onclick = function(event) {
-				if (!event.target.matches('.dropbtn')) {
-					var dropdowns = document.getElementsByClassName("dropdown-content");
-					var i;
-					for (i = 0; i < dropdowns.length; i++) {
-						var openDropdown = dropdowns[i];
-						if (openDropdown.classList.contains('show')) {
-							openDropdown.classList.remove('show');
-						}
-					}
-				}
-			}
-		</script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+		<title>Camagru - Reset Password</title>
 	</head>
 	<body>
 		<header>
-			<div class="menubar">
-				<a href="../index.php">
-					<img id="banner" src="images/rengelbr_logo.png">
-				</a>
-				<div class="nav_bar">
-					<ul id="menu">
-							<li><a href="index.php">Home</a></li>
-					</ul>
-					<div class="dropdown">
-						<button onclick="myFunction()" class="dropbtn">Login - Register</button>
-						<div id="myDropdown" class="dropdown-content">
-							<a href="login.php">Login</a>
-							<a href="register.php">Register</a>
-						</div>
-					</div>
+			<div class="navbar">
+				<div class="navbar-brand">
+					<a href="../index.php">
+						<img id="banner" src="images/rengelbr_logo.png">
+					</a>
+					<?php get_menu(); ?>
 				</div>
 			</div>
 		</header>
-		<div class="main_wrapper">
-<!--Navigation bar-->
-			<div class="menubar">
-			</div>
-<!--content wrapper starts-->
-			<div class="content_wrapper">
+		<section class="section">
+			<div class="container">
 	<!-- login form -->
 				<form method="POST" action="">
-					<table>
+					<!-- <table>
 						<tr align="center">
 							<td colspan="3"><h3 style="color:white;margin:10px">Try something you'll remember, maybe?</h3></td>
 						</tr>
@@ -78,7 +45,30 @@ toggle between hiding and showing the dropdown content */
 						<tr align="center">
 							<td colspan="3"><input type="submit" name="reset_pw" value="Reset Password"/></td>
 						</tr>
-					</table>
+					</table> -->
+					<div class="field">
+						<label class="label">Something you'll remember, perhaps?</label>
+						<p class="control has-icons-left">
+							<input class="input is-medium" type="email" name="user_email" placeholder="email"/>
+							<span class="icon is-small is-left">
+								<i class="fas fa-envelope"></i>
+							</span>
+						</p>
+					</div>
+					<div class="field">
+						<label class="label"></label>
+						<p class="control has-icons-left">
+							<input class="input is-medium" type="password" name="new_passwd" placeholder="new password"/>
+							<span class="icon is-small is-left">
+								<i class="fas fa-lock"></i>
+							</span>
+						</p>
+					</div>
+					<div class="field">
+						<p class="control">
+							<input class="button is-success" type="submit" name="reset_pw" value="Reset Password">
+						</p>
+					</div>
 				</form>
 				<?php
 					if (isset($_POST['reset_pw'])) {
