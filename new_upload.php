@@ -18,11 +18,16 @@ session_start();
 			}
 			if (!hasGetUserMedia()) {
 				alert("navigator.mediaDevices.getUserMedia doesn\'t exist");
+			}else {
+				var video = document.querySelector("#vidElement");
+				navigator.mediaDevices.getUserMedia({video:true}).then(function(stream) {
+						video.srcObject = stream;
+					}).catch(function(err0r) {
+						console.log("Well, that did not work.");
+					});
 			}
 
-			const constraints = {video: true};
-			navigator.mediaDevicesgetUserMedia(constraints).
-				then((stream)=>{video.srcObjects = stream});
+
 		</script>
 		<title>Camagru</title>
 	</head>
@@ -62,7 +67,7 @@ session_start();
 						<div class="tile is-parent">
 							<article class="tile is-child box">
 								<p class="title">main [webcam, upload]</p>
-								<video autoplay></video>
+								<video autoplay="true" id="vidElement"></video>
 								<!-- <figure class="image"><img src="images/rengelbr_logo.png"><figure> -->
 								<form action="" enctype="multipart/form-data" method="POST">
 									<input name="upl_image" type="file">
