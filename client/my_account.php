@@ -50,7 +50,6 @@ session_start();
 			</div>
 		</header>
 		<section class="section">
-<!--content wrapper starts-->
 			<div class="columns">
 				<!-- <div id="account_tools">
 
@@ -95,14 +94,13 @@ session_start();
 				?>
 				<div class="column">
 		</section>
-				</div>
-<!--content wrapper ends-->
-<!--footer starts-->
-			<div id="footer">
-				<h2 style="text-align:center; padding-top:30px;">&#169; rengelbr</h2>
-			</div>
 		<!--footer ends-->
 	</body>
+	<footer>
+		<div id="footer">
+			<h2 style="text-align:center; padding-top:30px;">&#169; rengelbr</h2>
+		</div>
+	</footer>
 </html>
 <?php
 if (isset($_GET['session_status'])) {
