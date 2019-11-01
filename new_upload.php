@@ -12,6 +12,18 @@ session_start();
 		<meta name="author" content="Rigardt Engelbrecht">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+		<script>
+			function hasGetUserMedia() {
+				return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+			}
+			if (!hasGetUserMedia()) {
+				alert("navigator.mediaDevices.getUserMedia doesn\'t exist");
+			}
+
+			const constraints = {video: true};
+			navigator.mediaDevicesgetUserMedia(constraints).
+				then((stream)=>{video.srcObjects = stream});
+		</script>
 		<title>Camagru</title>
 	</head>
 	<body>
@@ -50,7 +62,8 @@ session_start();
 						<div class="tile is-parent">
 							<article class="tile is-child box">
 								<p class="title">main [webcam, upload]</p>
-								<figure class="image"><img src="images/rengelbr_logo.png"><figure>
+								<video autoplay></video>
+								<!-- <figure class="image"><img src="images/rengelbr_logo.png"><figure> -->
 								<form action="" enctype="multipart/form-data" method="POST">
 									<input name="upl_image" type="file">
 									<input name="upload" type="submit" value="Upload Picture">
