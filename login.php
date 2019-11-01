@@ -21,7 +21,7 @@ session_start();
 			<div class="navbar">
 				<div class="navbar-brand">
 					<a href="index.php">
-						<img id="banner" src="images/rengelbr_logo.png">
+						<img id="banner" src="images/CAMAGRUFORU.png">
 					</a>
 					<?php
 						get_menu();
