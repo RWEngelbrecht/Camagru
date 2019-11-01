@@ -33,7 +33,7 @@ session_start();
 			</div> -->
 			<div class="navbar">
 			<div class="navbar-brand">
-				<a href="index.php">
+				<a href="../index.php">
 					<img id="banner" src="../images/CAMAGRUFORU.png">
 				</a>
 				<div class='navbar-start'>
