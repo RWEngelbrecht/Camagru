@@ -16,53 +16,34 @@ session_start();
 	</head>
 	<body>
 		<header>
-			<div class="navbar">
+			<!-- <div class="navbar"> -->
 				<div class="navbar-brand">
 					<a href="index.php">
-						<img id="banner" src="images/rengelbr_logo.png">
+						<img id="banner" src="images/CAMAGRUFORU.png">
 					</a>
-				<!-- </div> -->
-				<!-- <div class="navbar-menu"> -->
 					<?php
 						get_menu();
 					?>
 				</div>
-			</div>
+			<!-- </div> -->
 		</header>
-		<section class="section">
-			<!--content wrapper starts-->
-			<div class="container">
-				<div class="gallery">
-					<?php
-						get_gallery();
-					?>
+		<main>
+			<section class="section">
+				<div class="container is-fluid">
+					<!-- <div class="gallery"> -->
+						<?php
+							get_gallery();
+						?>
+					<!-- </div> -->
 				</div>
-			</div>
-		</section>
-				<nav class="pagination" role="navigation" aria-label="pagination">
-				<a class="pagination-previous" title="This is the first page" disabled>Previous</a>
-				<a class="pagination-next">Next page</a>
-				<ul class="pagination-list">
-				<li>
-					<a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
-				</li>
-				<li>
-					<a class="pagination-link" aria-label="Goto page 2">2</a>
-				</li>
-				<li>
-					<a class="pagination-link" aria-label="Goto page 3">3</a>
-				</li>
-				</ul>
-			</nav>
-			</div>
-			<!--content wrapper ends-->
-			<!--footer starts-->
-			<div id="footer">
-				<h2 style="text-align:center; padding-top:30px;">&#169; rengelbr</h2>
-			</div>
-		</div>
-		<!--footer ends-->
+			</section>
+		</main>
 	</body>
+	<footer>
+		<div id="footer">
+			<h2 style="text-align:center; padding-top:30px;">&#169; rengelbr</h2>
+		</div>
+	</footer>
 </html>
 <?php
 if (isset($_GET['session_status'])) {
