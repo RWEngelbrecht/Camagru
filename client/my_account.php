@@ -34,7 +34,7 @@ session_start();
 			<div class="navbar">
 			<div class="navbar-brand">
 				<a href="index.php">
-					<img id="banner" src="../images/rengelbr_logo.png">
+					<img id="banner" src="../images/CAMAGRUFORU.png">
 				</a>
 				<div class='navbar-start'>
 					<div class='navbar-item'>
@@ -51,15 +51,9 @@ session_start();
 		</header>
 		<section class="section">
 <!--content wrapper starts-->
-			<div class="container">
+			<div class="columns">
 				<!-- <div id="account_tools">
-					<?php
-						$get_udata = $con->prepare("SELECT * FROM users WHERE user_email=?");
-						$get_udata->execute([$_SESSION['user_email']]);
-						$u_data = $get_udata->fetch();
-						$u_img = $u_data['user_image'];
-						// echo "<img src='data:image/png;base64,".$u_img."' />";
-					?>
+
 					<ul>
 						<li>
 							<a href="my_account.php?session_status=update">Update Account</a>
@@ -69,7 +63,18 @@ session_start();
 				<div id="account_gallery">
 						<h2>Cage Time!</h2>
 				</div> -->
+				<div class="column is-one-quarter">
 				<aside class="menu" style="float:left">
+					<figure class="image is-128x128">
+						<?php
+							$get_udata = $con->prepare("SELECT * FROM users WHERE user_email=?");
+							$get_udata->execute([$_SESSION['user_email']]);
+							$u_data = $get_udata->fetch();
+							$u_img = $u_data['user_image'];
+							echo "<img class='is-rounded' src='data:image/png;base64,".$u_img."' />";
+						?>
+					</figure>
+					<br/>
 					<p class="menu-label">
 						<?php echo $_SESSION['user_name'] ?>
 					</p>
@@ -77,8 +82,9 @@ session_start();
 						<li><a id="open-modal" href="my_account.php?session_status=update">Edit Account</a></li>
 					</ul>
 				</aside>
-		</section>
-		<section class="section">
+				<br/>
+				</div>
+				<div class="column">
 			<?php
 				if (isset($_GET['session_status'])){
 					include_once 'update_account.php';
@@ -86,8 +92,10 @@ session_start();
 				if (isset($_POST['updt_name']) || isset($_POST['updt_email']) || isset($_POST['updt_passwd']) || isset($_POST['updt_image'])){
 					update_user($u_data['user_id']);
 				}
-			?>
+				?>
+				<div class="column">
 		</section>
+				</div>
 <!--content wrapper ends-->
 <!--footer starts-->
 			<div id="footer">
