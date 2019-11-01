@@ -29,30 +29,52 @@ session_start();
 		</header>
 		<main>
 			<section class="section">
-				<div class="columns is-vcentered">
-	<!-- Should show webcam, webcam button, upload img button-->
+				<!-- <div class="columns is-vcentered">
 					<div class="column" style="background:blue">
 						<div class="container">
 							<form action="" enctype="multipart/form-data" method="POST">
 								<input name="upl_image" type="file">
 								<input name="upload" type="submit" value="Upload Picture">
-								<?php
-									if (isset($_POST['upload'])){
-										if (isset($_FILES['upl_image']['name'])){
-											upload_image($_SESSION['user_id']);
-										}
-									}
-								?>
+
 							</form>
 						</div>
 					</div>
 					<div class="column is-one-quarter" style="background:black">
-						<!-- Display previous pics taken/uploaded -->
 						<div class="container">
-							<?php //get_upload_thumbs($_SESSION['user_id']); ?>
+
+						</div>
+					</div>
+				</div> -->
+				<div class="tile is-ancestor">
+					<div class="tile is-8">
+						<div class="tile is-parent">
+							<article class="tile is-child box">
+								<p class="title">main [webcam, upload]</p>
+								<figure class="image"><img src="images/rengelbr_logo.png"><figure>
+								<form action="" enctype="multipart/form-data" method="POST">
+									<input name="upl_image" type="file">
+									<input name="upload" type="submit" value="Upload Picture">
+								</form>
+							</article>
+						</div>
+					</div>
+					<div class="tile is-4">
+						<div class="tile is-parent">
+							<article class="tile is-child box">
+								<p class="title">sidebar [thumbnails]</p>
+								<?php get_upload_thumbs($_SESSION['user_id']); ?>
+							</article>
 						</div>
 					</div>
 				</div>
+
+				<?php
+					if (isset($_POST['upload'])){
+						if (isset($_FILES['upl_image']['name'])){
+							upload_image($_SESSION['user_id']);
+						}
+					}
+				?>
 			</section>
 		<main>
 	</body>
