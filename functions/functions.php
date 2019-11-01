@@ -57,31 +57,21 @@ function get_menu() {
 	{
 		if (verif_user($_SESSION['user_id'])) {
 			echo "<div class='navbar-start'>
-					<nav class='level'>
-					<div class='level-right'>
-						<div class='level-item'>
 						<div class='navbar-item'>
 							<a class='button is-primary' href='index.php'>Home</a>
 						</div>
-						</div>
-						</div>
 
-						<div class='level-item'>
 						<div class='navbar-item'>
 							<a class='button is-light' href='new_upload.php'>New Upload</a>
 						</div>
-						</div>
-						<div class='level-item'>
+
 						<div class='navbar-item'>
 							<a class='button is-primary' href='client/my_account.php?user=".hash('whirlpool',$_SESSION['user_name'])."'>My Account</a>
 						</div>
-						</div>
-						<div class='level-item'>
+
 						<div class='navbar-item'>
 							<a class='button is-light' href='index.php?session_status=logout'>Log Out</a>
 						</div>
-						</div>
-					</nav>
 				</div>";
 		}
 	}
@@ -232,7 +222,20 @@ function upload_image($user) {
 }
 
 function get_upload_thumbs($user) {
+	include 'includes/connect.php';
 
+	if (!empty($user)) {
+		$get_imgs_sql = "SELECT * FROM images WHERE u_id=:usr_id ORDER BY date_created DESC LIMIT 5";
+		$get_user_imgs = $con->prepare($get_imgs_sql);
+		$get_user_imgs->execute(array(':usr_id'=>$user));
+
+		while ($img = $get_user_imgs->fetch()) {
+			$img_name = $img['img_name'];
+			echo "	<figure class='image'>
+						<img src='data:image/png;base64,".$img_name."' />
+					</figure>";
+		}
+	}
 }
 
 function update_user($user_id) {
