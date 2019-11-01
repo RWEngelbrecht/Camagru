@@ -57,18 +57,31 @@ function get_menu() {
 	{
 		if (verif_user($_SESSION['user_id'])) {
 			echo "<div class='navbar-start'>
-					<div class='navbar-item'>
-						<a class='button is-primary' href='index.php'>Home</a>
-					</div>
-					<div class='navbar-item'>
-						<a class='button is-light' href='new_upload.php'>New Upload</a>
-					</div>
-					<div class='navbar-item'>
-						<a class='button is-primary' href='client/my_account.php?user=".hash('whirlpool',$_SESSION['user_name'])."'>My Account</a>
-					</div>
-					<div class='navbar-item'>
-						<a class='button is-light' href='index.php?session_status=logout'>Log Out</a>
-					</div>
+					<nav class='level'>
+					<div class='level-right'>
+						<div class='level-item'>
+						<div class='navbar-item'>
+							<a class='button is-primary' href='index.php'>Home</a>
+						</div>
+						</div>
+						</div>
+
+						<div class='level-item'>
+						<div class='navbar-item'>
+							<a class='button is-light' href='new_upload.php'>New Upload</a>
+						</div>
+						</div>
+						<div class='level-item'>
+						<div class='navbar-item'>
+							<a class='button is-primary' href='client/my_account.php?user=".hash('whirlpool',$_SESSION['user_name'])."'>My Account</a>
+						</div>
+						</div>
+						<div class='level-item'>
+						<div class='navbar-item'>
+							<a class='button is-light' href='index.php?session_status=logout'>Log Out</a>
+						</div>
+						</div>
+					</nav>
 				</div>";
 		}
 	}
@@ -184,9 +197,19 @@ function get_gallery() {
 
 	while ($image = $exe_imgs->fetch()) {
 		$img_name = $image['img_name'];
-		echo "	<figure class='image is-128x128'>
-				<img src='data:image/png;base64,".$img_name."' />
-				</figure>";
+		echo "	<div class='tile is-ancestor'>
+					<div class='tile is-5 is-vertical'>
+						<div class='tile is-parent'>
+						<article class='tile is-child box'>
+							<figure class='image'>
+									<img src='data:image/png;base64,".$img_name."' />
+							</figure>
+							<p class='title'>Middle tile</p>
+							<p class='subtitle'>With an image</p>
+						</article>
+					  </div>
+					</div>
+				</div>";
 	}
 	echo '';
 }
@@ -208,86 +231,12 @@ function upload_image($user) {
 	}
 }
 
+function get_upload_thumbs($user) {
+
+}
+
 function update_user($user_id) {
 
-	// if ($_GET['update'] == 'username') {
-	// 	echo "<form method='POST' action=''><table>
-	// 			<tr align='center'>
-	// 				<td colspan='6' style='padding:15px; color:white;'><h2>Update your Account</h2></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td align='right' style='padding:15px; color:white;''>New Name: </td>
-	// 				<td><input type='text' name='new_name' required/></td>
-	// 			</tr>
-	// 			<tr align='center'>
-	// 				<td colspan='6' style='padding:15px'><input type='submit' name='updt_name' value='Update Name'/></td>
-	// 			</tr>
-	// 			</table></form>";
-	// 	if (isset($_POST['updt_name'])) {
-	// 		validate_name($_POST['new_name']);
-	// 		update_name($user_id, $_POST['new_name']);
-	// 		echo "<script>window.open('my_account.php', '_self')</script>";
-	// 	}
-	// }
-	// if ($_GET['update'] == 'email') {
-	// 	echo "<form method='POST' action=''><table>
-	// 			<tr align='center'>
-	// 				<td colspan='6' style='padding:15px; color:white;'><h2>Update your Account</h2></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td align='right' style='padding:15px; color:white;''>New E-mail: </td>
-	// 				<td><input type='text' name='new_email' required/></td>
-	// 			</tr>
-	// 			<tr align='center'>
-	// 				<td colspan='6' style='padding:15px'><input type='submit' name='updt_email' value='Update E-mail'/></td>
-	// 			</tr>
-	// 			</table></form>";
-	// 	if (isset($_POST['updt_email'])) {
-	// 		validate_email($_POST['new_email']);
-	// 		update_email($user_id, $_POST['new_email']);
-	// 		echo "<script>window.alert('An email has been sent to ".$u_email.". Follow the instructions to verify your account.')</script>";
-	// 		echo "<script>window.open('my_account.php', '_self')</script>";
-	// 	}
-	// }
-	// if ($_GET['update'] == 'passwd') {
-	// 	echo "<form method='POST' action=''><table>
-	// 			<tr align='center'>
-	// 				<td colspan='6' style='padding:15px; color:white;'><h2>Update your Account</h2></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td align='right' style='padding:15px; color:white;''>New Password: </td>
-	// 				<td><input type='password' name='new_passwd' required/></td>
-	// 			</tr>
-	// 			<tr align='center'>
-	// 				<td colspan='6' style='padding:15px'><input type='submit' name='updt_passwd' value='Update Password'/></td>
-	// 			</tr>
-	// 			</table></form>";
-	// 	if (isset($_POST['updt_passwd'])) {
-	// 		validate_password($_POST['new_passwd']);
-	// 		update_passwd($user_id, hash('whirlpool',$_POST['new_passwd']));
-	// 		echo "<script>window.open('my_account.php', '_self')</script>";
-	// 	}
-	// }
-	// if ($_GET['update'] == 'image') {
-	// 	echo "<form method='POST' action='' enctype='multipart/form-data'><table>
-	// 			<tr align='center'>
-	// 				<td colspan='6' style='padding:15px; color:white;'><h2>Update your Account</h2></td>
-	// 			</tr>
-	// 			<tr>
-	// 				<td align='right' style='padding:15px; color:white;''>New Image: </td>
-	// 				<td><input type='file' name='new_image' required/></td>
-	// 			</tr>
-	// 			<tr align='center'>
-	// 				<td colspan='6' style='padding:15px'><input type='submit' name='updt_image' value='Update Image'/></td>
-	// 			</tr>
-	// 			</table></form>";
-	// 	if (isset($_POST['updt_image'])) {
-	// 		// validate_image($_POST['new_image']);
-	// 		$new_img_tmp = base64_encode(file_get_contents($_FILES['new_image']['tmp_name']));
-	// 		update_image($user_id, $new_img_tmp);
-	// 		echo "<script>window.open('my_account.php', '_self')</script>";
-	// 	}
-	// }
 	if (isset($_POST['updt_name'])) {
 		validate_name($_POST['new_name']);
 		update_name($user_id, $_POST['new_name']);
