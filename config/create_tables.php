@@ -28,11 +28,18 @@ try {
 
 	$cmnts = "CREATE TABLE IF NOT EXISTS comments(
 		`cmnt_id` INT(100) AUTO_INCREMENT PRIMARY KEY,
-		`cmnt_img_id` INT NOT NULL REFERENCES images(img_id),
-		`cmnt_usr_id` Int NOT NULL REFERENCES users(user_id),
+		`cmnt_img_id` INT(100) NOT NULL REFERENCES images(img_id),
+		`cmnt_usr_id` INT(100) NOT NULL REFERENCES users(user_id),
 		`comment` TEXT(255) NOT NULL)";
 
 	$con->exec($cmnts);
+
+	$likes = "CREATE TABLE IF NOT EXISTS likes(
+		`like_id` INT(100) AUTO_INCREMENT PRIMARY KEY,
+		`like_img_id` INT(100) NOT NULL REFERENCES images(img_id),
+		`like_usr_id` INT(100) NOT NULL REFERENCES users(user_id))";
+
+	$con->exec($likes);
 }
 catch(PDOException $e) {
 	echo "ERROR: ".$e->getMessage();
