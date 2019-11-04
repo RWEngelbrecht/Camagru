@@ -3,15 +3,17 @@
 function post_is_liked($img_id) {
 	include 'includes/connect.php';
 
-	$like_usr_id = $_SESSION['user_id'];
+	if (isset($_SESSION['user_id'])) {
+		$like_usr_id = $_SESSION['user_id'];
 
-	$is_liked_sql = "SELECT * FROM likes WHERE like_usr_id=:usr_id AND like_img_id=:img_id ";
-	$is_liked = $con->prepare($is_liked_sql);
-	$is_liked->execute(array(':usr_id'=>$like_usr_id, ':img_id'=>$img_id));
-	$usr_likes = $is_liked->fetchAll();
-	$con = null;
-	if (!empty($usr_likes))
-		return true;
+		$is_liked_sql = "SELECT * FROM likes WHERE like_usr_id=:usr_id AND like_img_id=:img_id ";
+		$is_liked = $con->prepare($is_liked_sql);
+		$is_liked->execute(array(':usr_id'=>$like_usr_id, ':img_id'=>$img_id));
+		$usr_likes = $is_liked->fetchAll();
+		$con = null;
+		if (!empty($usr_likes))
+			return true;
+	}
 	return false;
 }
 
