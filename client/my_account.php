@@ -41,7 +41,7 @@ session_start();
 						<a class='button is-primary' href='../index.php'>Home</a>
 					</div>
 					<div class='navbar-item'>
-						<a class='button is-light' href='../new_upload.php'>New Upload</a>
+						<a class='button is-light' href='new_upload.php'>New Upload</a>
 					</div>
 					<div class='navbar-item'>
 						<a class='button is-light' href='my_account.php?session_status=logout'>Log Out</a>
@@ -50,7 +50,7 @@ session_start();
 			</div>
 		</header>
 		<section class="section">
-			<div class="columns">
+			<!-- <div class="columns"> -->
 				<!-- <div id="account_tools">
 
 					<ul>
@@ -62,7 +62,7 @@ session_start();
 				<div id="account_gallery">
 						<h2>Cage Time!</h2>
 				</div> -->
-				<div class="column is-one-quarter">
+				<!-- <div class="column is-one-quarter">
 				<aside class="menu" style="float:left">
 					<figure class="image is-128x128">
 						<?php
@@ -83,18 +83,48 @@ session_start();
 				</aside>
 				<br/>
 				</div>
-				<div class="column">
-			<?php
-				if (isset($_GET['session_status'])){
-					include_once 'update_account.php';
-				}
-				if (isset($_POST['updt_name']) || isset($_POST['updt_email']) || isset($_POST['updt_passwd']) || isset($_POST['updt_image'])){
-					update_user($u_data['user_id']);
-				}
-				?>
-				<div class="column">
+				<div class="column"> -->
+				<div class="tile is-ancestor">
+					<div class="tile is-2">
+					<article class="tile is-child box">
+						<figure class="image is-128x128">
+							<?php
+								$get_udata = $con->prepare("SELECT * FROM users WHERE user_email=?");
+								$get_udata->execute([$_SESSION['user_email']]);
+								$u_data = $get_udata->fetch();
+								$u_img = $u_data['user_image'];
+								echo "<img class='is-rounded' src='data:image/png;base64,".$u_img."' />";
+							?>
+						</figure>
+						<br/>
+					<p class="menu-label">
+						<?php echo $_SESSION['user_name'] ?>
+					</p>
+					<ul class="menu-list">
+						<li><a id="open-modal" href="my_account.php?session_status=update">Edit Account</a></li>
+					</ul>
+					</article>
+					</div>
+					<div class="tile is-10">
+						<div class="tile is-parent">
+							<article class="tile is-child box">
+								<?php
+									if (isset($_GET['session_status'])){
+										include_once 'update_account.php';
+									}
+									else {
+										get_upload_thumbs($_SESSION['user_id']);
+									}
+									if (isset($_POST['updt_name']) || isset($_POST['updt_email']) || isset($_POST['updt_passwd']) || isset($_POST['updt_image'])){
+										update_user($u_data['user_id']);
+									}
+								?>
+							</article>
+						</div>
+					</div>
+				</div>
+
 		</section>
-		<!--footer ends-->
 	</body>
 	<footer>
 		<div id="footer">
