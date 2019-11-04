@@ -37,7 +37,7 @@ function verif_email($u_email, $ver_code) {
 function verif_user($user_id) {
 	// include ('../includes/connect.php');
 	try {
-		$con = new PDO("mysql:host=localhost;dbname=db_camagru", "root", "qwerqwer");
+		$con = new PDO("mysql:host=localhost;dbname=db_camagru", "root", "root");
 		$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOException $e) {
@@ -211,7 +211,7 @@ function get_gallery() {
 }
 
 function upload_image($user) {
-	include 'includes/connect.php';
+	include '../includes/connect.php';
 
 	if (!empty($user)) {
 
