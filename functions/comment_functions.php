@@ -55,12 +55,18 @@ function get_comments($img_id) {
 function post_comment($img) {
 	include 'includes/connect.php';
 
-	$comment = $_POST['cmntContent'];
-	$commentor_id = $_SESSION['user_id'];
+	if (isset($_SESSION['user_id'])) {
+		$comment = $_POST['cmntContent'];
+		$commentor_id = $_SESSION['user_id'];
+	}
+	if ($commentor_id) {
 
-	$post_cmnt_sql = "INSERT INTO comments(cmnt_img_id, cmnt_usr_id, comment) VALUES(:img_id, :cmntr_id, :cmnt)";
-	$post_cmnt = $con->prepare($post_cmnt_sql);
-	$post_cmnt->execute(array(':img_id'=>$img, ':cmntr_id'=>$commentor_id, ':cmnt'=>$comment));
+		$post_cmnt_sql = "INSERT INTO comments(cmnt_img_id, cmnt_usr_id, comment) VALUES(:img_id, :cmntr_id, :cmnt)";
+		$post_cmnt = $con->prepare($post_cmnt_sql);
+		$post_cmnt->execute(array(':img_id'=>$img, ':cmntr_id'=>$commentor_id, ':cmnt'=>$comment));
+	} else {
+		echo "<script>alert('Please Log In or Register to like or comment!')</script>";
+	}
 }
 
 ?>
