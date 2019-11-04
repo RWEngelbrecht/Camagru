@@ -14,21 +14,26 @@ session_start();
 		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 		<script>
 			function hasGetUserMedia() {
-				return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-			}
-			if (!hasGetUserMedia()) {
-				alert("navigator.mediaDevices.getUserMedia doesn\'t exist");
-			}else {
-				var video = document.querySelector("#vidElement");
-				navigator.mediaDevices.getUserMedia({video:true}).then(function(stream) {
-						video.srcObject = stream;
-					}).catch(function(err0r) {
-						console.log("Well, that did not work.");
-					});
-			}
+					return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+				}
+				if (!hasGetUserMedia()) {
+					alert("navigator.mediaDevices.getUserMedia doesn\'t exist");
+				}
+				function startup() {
+					var vid = document.getElementById("vid");
+					var canv = document.getElementById("uploadCanvas");
+					var photo = document.getElementById("photo");
+					var shoot = document.getElementById("shoot");
 
+					var contx = canv.getContext('2d');
 
-		</script>
+					shoot.addEventListener('click', function(ev){
+						contx.drawImage(vid, 0, 0, 720, 480);
+						var data = canv.toDataURL('image/png');
+						photo.setAttribute('src', data);
+					})
+				}
+		</script>	
 		<title>Camagru</title>
 	</head>
 	<body>
@@ -54,28 +59,18 @@ session_start();
 		</header>
 		<main>
 			<section class="section">
-				<!-- <div class="columns is-vcentered">
-					<div class="column" style="background:blue">
-						<div class="container">
-							<form action="" enctype="multipart/form-data" method="POST">
-								<input name="upl_image" type="file">
-								<input name="upload" type="submit" value="Upload Picture">
-
-							</form>
-						</div>
-					</div>
-					<div class="column is-one-quarter" style="background:black">
-						<div class="container">
-
-						</div>
-					</div>
-				</div> -->
 				<div class="tile is-ancestor">
 					<div class="tile is-8">
 						<div class="tile is-parent">
 							<article class="tile is-child box">
-								<p class="title">main [webcam, upload]</p>
-								<video autoplay="true" id="vidElement"></video>
+								<p class="title">Take a picture</p>
+										<video autoplay id='vid' width='720' height='480' style=''></video>
+										<canvas id='uploadCanvas' width='720' height='480' style="display:none">
+										</canvas>
+										<button id="shoot">Take Picture</button>
+										<img id="photo">
+
+								<br/><br/><p class="title">Or Upload a picture</p>
 								<!-- <figure class="image"><img src="images/rengelbr_logo.png"><figure> -->
 								<form action="" enctype="multipart/form-data" method="POST">
 									<input name="upl_image" type="file">
@@ -93,6 +88,7 @@ session_start();
 						</div>
 					</div>
 				</div>
+				
 				<?php
 					if (isset($_POST['upload'])){
 						if (isset($_FILES['upl_image']['name'])){
@@ -108,6 +104,18 @@ session_start();
 			<h2 style="text-align:center; padding-top:30px;">&#169; rengelbr</h2>
 		</div>
 	</footer>
+	<script>
+		var video = document.querySelector("#vid");
+		navigator.mediaDevices.getUserMedia({video:true}).then(function(stream) {
+				video.srcObject = stream;
+				video.play();
+			}).catch(function(err0r) {
+				console.log("Well, that did not work.");
+			});
+
+		
+		document.getElementById("shoot").onclick = startup();
+	</script>
 </html>
 <?php
 if (isset($_GET['session_status'])) {
