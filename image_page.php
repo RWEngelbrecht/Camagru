@@ -4,6 +4,8 @@ include("config/setup.php");
 include "functions/functions.php";
 include "functions/image_functions.php";
 include "functions/comment_functions.php";
+include "functions/like_functions.php";
+
 ini_set("display_errors", true);
 session_start();
 ?>
@@ -33,9 +35,28 @@ session_start();
 			<section class="section">
 				<div class="container is-fluid">
 					<!-- <div class="gallery"> -->
-						<?php get_image($_GET['img']); ?>
+						<?php
+						if (isset($_POST['like'])) {
+							post_like($_GET['img']);
+						}
+						if (isset($_POST['apathy'])) {
+							delete_like($_GET['img']);
+						}
+						if (isset($_POST['comment'])) {
+							post_comment($_GET['img']);
+						}
+						get_image($_GET['img']);
+						?>
 						<div class="control">
-							<form method="POST" action="">
+							<form method="POST">
+								<?php
+									if (!post_is_liked($_GET['img'])) {
+										echo "<input class='button is-light' type='submit' name='like' value='Like'>";
+									} else {
+										echo "<input class='button is-success' type='submit' name='apathy' value='Liked'>";
+									}
+								?>
+								<br/>
 								<input class="textarea" type="text" name="cmntContent" placeholder="Comment...">
 								<div class="field is-grouped is-grouped-right">
 									<input class="button is-success" type="submit" name="comment" value="Comment">
@@ -43,9 +64,6 @@ session_start();
 							</form>
 						</div>
 						<?php
-							if (isset($_POST['comment'])) {
-								post_comment($_GET['img']);
-							}
 							get_comments($_GET['img']);
 						?>
 					<!-- </div> -->
