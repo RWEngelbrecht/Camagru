@@ -30,10 +30,12 @@ session_start();
 					shoot.addEventListener('click', function(ev){
 						contx.drawImage(vid, 0, 0, 720, 480);
 						var data = canv.toDataURL('image/png');
-						photo.setAttribute('src', data);
-					})
+						// photo.setAttribute('src', data);
+
+						document.getElementById('taken').value = data;
+					});
 				}
-		</script>	
+		</script>
 		<title>Camagru</title>
 	</head>
 	<body>
@@ -65,15 +67,16 @@ session_start();
 							<article class="tile is-child box">
 								<p class="title">Take a picture</p>
 										<video autoplay id='vid' width='720' height='480' style=''></video>
-										<canvas id='uploadCanvas' width='720' height='480' style="display:none">
-										</canvas>
 										<button id="shoot">Take Picture</button>
+										<canvas id='uploadCanvas' width='720' height='480' style="">
+										</canvas>
 										<img id="photo">
 
+
 								<br/><br/><p class="title">Or Upload a picture</p>
-								<!-- <figure class="image"><img src="images/rengelbr_logo.png"><figure> -->
-								<form action="" enctype="multipart/form-data" method="POST">
-									<input name="upl_image" type="file">
+								<form action="" method="POST">
+									<input name="taken" id="taken" type="hidden">
+									<input name="upl_image" id="upl_image" type="file">
 									<input name="upload" type="submit" value="Upload Picture">
 								</form>
 							</article>
@@ -88,7 +91,7 @@ session_start();
 						</div>
 					</div>
 				</div>
-				
+
 				<?php
 					if (isset($_POST['upload'])){
 						if (isset($_FILES['upl_image']['name'])){
@@ -109,11 +112,12 @@ session_start();
 		navigator.mediaDevices.getUserMedia({video:true}).then(function(stream) {
 				video.srcObject = stream;
 				video.play();
-			}).catch(function(err0r) {
+			}).catch(function(error) {
 				console.log("Well, that did not work.");
 			});
 
 		document.getElementById("shoot").onclick = startup();
+		document.getElementById('taken').value = data;
 	</script>
 </html>
 <?php
