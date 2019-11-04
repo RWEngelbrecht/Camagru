@@ -13,7 +13,8 @@ try {
 	-- `user_contact` VARCHAR(100) NOT NULL,
 	`user_image` LONGTEXT,
 	`token` VARCHAR(255) NOT NULL,
-	`verified` BIT default 0 NOT NULL)";
+	`verified` BIT default 0 NOT NULL,
+	`notify` BIT default 1 NOT NULL)";
 
 	$con->exec($usr);
 
@@ -24,6 +25,14 @@ try {
 		`date_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 
 	$con->exec($img);
+
+	$cmnts = "CREATE TABLE IF NOT EXISTS comments(
+		`cmnt_id` INT(100) AUTO_INCREMENT PRIMARY KEY,
+		`cmnt_img_id` INT NOT NULL REFERENCES images(img_id),
+		`cmnt_usr_id` Int NOT NULL REFERENCES users(user_id),
+		`comment` TEXT(255) NOT NULL)";
+
+	$con->exec($cmnts);
 }
 catch(PDOException $e) {
 	echo "ERROR: ".$e->getMessage();
