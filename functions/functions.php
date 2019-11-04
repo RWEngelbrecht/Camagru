@@ -180,6 +180,7 @@ function replace_passwd($new_passwd, $verif_key) {
 //gets and displays images uploaded by all users
 function get_gallery() {
 	include 'includes/connect.php';
+	include_once 'functions/comment_functions.php';
 
 	$get_imgs = "SELECT * FROM images ORDER BY date_created DESC";
 	$exe_imgs = $con->prepare($get_imgs);
@@ -187,15 +188,18 @@ function get_gallery() {
 
 	while ($image = $exe_imgs->fetch()) {
 		$img_name = $image['img_name'];
+		$img_id = $image['img_id'];
+		$cmnts_amnt = get_comment_count($img_id);
 		echo "	<div class='tile is-ancestor'>
 					<div class='tile is-5 is-vertical'>
 						<div class='tile is-parent'>
 						<article class='tile is-child box'>
 							<figure class='image'>
-									<img src='data:image/png;base64,".$img_name."' />
+									<a href='image_page.php?img=$img_id'>
+										<img src='data:image/png;base64,".$img_name."' />
+									</a>
 							</figure>
-							<p class='title'>Middle tile</p>
-							<p class='subtitle'>With an image</p>
+							<p class='subtitle'>Likes: Comments: $cmnts_amnt</p>
 						</article>
 					  </div>
 					</div>
