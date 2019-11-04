@@ -113,7 +113,6 @@ session_start();
 				console.log("Well, that did not work.");
 			});
 
-		
 		document.getElementById("shoot").onclick = startup();
 	</script>
 </html>
