@@ -62,7 +62,7 @@ function get_menu() {
 						</div>
 
 						<div class='navbar-item'>
-							<a class='button is-light' href='new_upload.php'>New Upload</a>
+							<a class='button is-light' href='client/new_upload.php'>New Upload</a>
 						</div>
 
 						<div class='navbar-item'>
@@ -125,7 +125,7 @@ function log_in() {
 function log_out($page){
 
 		session_destroy();
-		if ($page == "my_account" || $page == "verify_email") {
+		if ($page == "my_account" || $page == "verify_email" || $page == "new_upload") {
 			echo "<script>window.open('../index.php', '_self')</script>";
 		}
 		else if ($page == "index") {
@@ -181,6 +181,7 @@ function replace_passwd($new_passwd, $verif_key) {
 function get_gallery() {
 	include 'includes/connect.php';
 	include_once 'functions/comment_functions.php';
+	include_once 'functions/like_functions.php';
 
 	$get_imgs = "SELECT * FROM images ORDER BY date_created DESC";
 	$exe_imgs = $con->prepare($get_imgs);
@@ -190,6 +191,7 @@ function get_gallery() {
 		$img_name = $image['img_name'];
 		$img_id = $image['img_id'];
 		$cmnts_amnt = get_comment_count($img_id);
+		$likes_amnt = get_like_count($img_id);
 		echo "	<div class='tile is-ancestor'>
 					<div class='tile is-5 is-vertical'>
 						<div class='tile is-parent'>
@@ -199,7 +201,7 @@ function get_gallery() {
 										<img src='data:image/png;base64,".$img_name."' />
 									</a>
 							</figure>
-							<p class='subtitle'>Likes: Comments: $cmnts_amnt</p>
+							<p class='subtitle'>Likes: $likes_amnt Comments: $cmnts_amnt</p>
 						</article>
 					  </div>
 					</div>
@@ -226,7 +228,7 @@ function upload_image($user) {
 }
 
 function get_upload_thumbs($user) {
-	include 'includes/connect.php';
+	include '../includes/connect.php';
 
 	if (!empty($user)) {
 		$get_imgs_sql = "SELECT * FROM images WHERE u_id=:usr_id ORDER BY date_created DESC LIMIT 5";
