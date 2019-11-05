@@ -234,7 +234,7 @@ function get_upload_thumbs($user) {
 		$get_imgs_sql = "SELECT * FROM images WHERE u_id=:usr_id ORDER BY date_created DESC LIMIT 5";
 		$get_user_imgs = $con->prepare($get_imgs_sql);
 		$get_user_imgs->execute(array(':usr_id'=>$user));
-
+		
 		while ($img = $get_user_imgs->fetch()) {
 			$img_name = $img['img_name'];
 			echo "	<figure class='image'>
@@ -278,7 +278,6 @@ function update_name($user_id, $new_name) {
 		$_SESSION['user_name'] = $new_name;
 	}
 }
-
 function update_email($user_id, $new_email) {
 	include '../includes/connect.php';
 

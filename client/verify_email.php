@@ -15,6 +15,20 @@ session_start();
 		<meta name="author" content="Rigardt Engelbrecht">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+		<style>
+			.navbar-brand {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 220px;
+				z-index: 10;
+				background: #eeeeee;
+				-webkit-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+				-moz-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+				box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+			}
+		</style>
 		<title>Camagru - Email Verified</title>
 	</head>
 	<body>
@@ -30,7 +44,7 @@ session_start();
 				</div>
 			</div>
 		</header>
-		<section class="section">
+		<section class="section"  style="margin-top:150px">
 			<div class="container">
 				<?php
 		//checks if user is already verified or if user exists. Redundancy can be safer.
@@ -42,7 +56,7 @@ session_start();
 							$_SESSION['user_name'] = $user['user_name'];
 							$_SESSION['user_email'] = $user['user_email'];
 							$_SESSION['user_id'] = $user['user_id'];
-							echo "<h2>You are already a verified user. That's good, but what are you doing in a place like this? Just click <a href='my_account.php'>here</a>.</h2>";
+							echo "<p class='title'>You are already a verified user. That's good, but what are you doing in a place like this? Just click <a href='my_account.php'>here</a>.</p>";
 						} else {
 							$u_email = $user['user_email'];
 							// $get_ver = $con->prepare("SELECT token FROM users WHERE user_email=?");
@@ -58,7 +72,7 @@ session_start();
 								$_SESSION['user_name'] = $user['user_name'];
 								$_SESSION['user_email'] = $user['user_email'];
 								$_SESSION['user_id'] = $user['user_id'];
-								echo "<h2>Your account is verified. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php?'>here</a>.</h2>";
+								echo "<p class='title'>Your account is verified. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php?'>here</a>.</p>";
 						}
 					}
 					else {

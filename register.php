@@ -12,27 +12,24 @@ session_start();
 		<meta name="author" content="Rigardt Engelbrecht">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+		<style>
+			.navbar-brand {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 220px;
+				z-index: 10;
+				background: #eeeeee;
+				-webkit-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+				-moz-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+				box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+			}
+		</style>
 		<title>Camagru - Register</title>
 	</head>
 	<body>
 		<header>
-			<!-- <div class="menubar">
-				<a href="index.php">
-					<img id="banner" src="images/rengelbr_logo.png">
-				</a>
-				<div class="nav_bar">
-					<ul id="menu">
-						<li><a href="index.php">Home</a></li>
-					</ul>
-					<div class="dropdown">
-						<button onclick="myFunction()" class="dropbtn">Login - Register</button>
-						<div id="myDropdown" class="dropdown-content">
-							<a href="login.php">Login</a>
-							<a href="register.php">Register</a>
-						</div>
-					</div>
-				</div>
-			</div> -->
 			<div class="navbar">
 				<div class="navbar-brand">
 					<a href="index.php">
@@ -44,8 +41,9 @@ session_start();
 				</div>
 			</div>
 		</header>
-		<section class="section">
+		<section class="section" style="margin-top:150px">
 			<div class="container">
+				<p class="title">Ready To Become a More Complete Person?</p>
 				<form action="register.php" method="POST" enctype="multipart/form-data">
 					<div class="field">
 						<label class="label">Name</label>
@@ -114,11 +112,6 @@ session_start();
 		$u_passwd = hash('whirlpool', $_POST['u_passwd']);
 		validate_password($_POST['u_passwd']);
 
-		// $u_image = $_FILES['u_image']['name'];
-		// // $img_type = $_FILES['u_image']['type'];
-		// $u_image_tmp = $_FILES['u_image']['tmp_name'];
-		// $img_data = file_get_contents($u_image_tmp);
-		// // $put_img = $con->prepare();
 		$u_image = $_FILES['u_image']['name'];
 		$u_image_tmp = base64_encode(file_get_contents($_FILES['u_image']['tmp_name']));
 		// move_uploaded_file($u_image_tmp, "client/client_images/$u_image");

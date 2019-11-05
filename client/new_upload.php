@@ -14,6 +14,20 @@ ini_set("display_errors", true);
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 		<script src="../functions/hasGetUserMedia.js"></script>
+		<style>
+			.navbar-brand {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 220px;
+				z-index: 10;
+				background: #eeeeee;
+				-webkit-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+				-moz-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+				box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
+			}
+		</style>
 		<title>Camagru</title>
 	</head>
 	<body>
@@ -38,7 +52,7 @@ ini_set("display_errors", true);
 			</div>
 		</header>
 		<main>
-			<section class="section">
+			<section class="section" style="margin-top:150px">
 	<!-- webcam and image upload tile -->
 				<div class="tile is-ancestor">
 					<div class="tile is-8">
@@ -46,7 +60,10 @@ ini_set("display_errors", true);
 							<article class="tile is-child box">
 								<p class="title">Take a picture</p>
 									<video autoplay id='vid' width='720' height='480' style=''></video>
-									<button id="shoot">Take Picture</button>	
+									<br/>
+									<div class="buttons is-centered">
+										<button class="button is-centered" id="shoot" >Take Picture</button>
+									</div>
 									<canvas id='uploadCanvas' width='720' height='480' style=""></canvas>
 								<form action="" method="POST" enctype=multipart/form-data>
 									<input name="taken" id="taken" type="hidden" value="upload_taken.php">
@@ -56,10 +73,12 @@ ini_set("display_errors", true);
 										<img src="http://localhost:8080/Camagru/images/superimposables/paint_me_bart.png" class="supers" width="100" height="100">
 										<img src="http://localhost:8080/Camagru/images/superimposables/handsome.png" class="supers" width="100" height="100">
 									</div>
-									<button class="button" type="submit" name="submit_taken" id="submit_taken">Upload Photo</button>
+									<div class="buttons is-centered">
+										<button class="button is-centered" type="submit" name="submit_taken" id="submit_taken">Upload Photo</button>
+									</div>
 								<br/><br/><p class="title">Or Upload a picture</p>
 									<input name="upl_image" id="upl_image" type="file">
-									<input name="upload" type="submit" value="Upload Picture">
+									<input class="button" name="upload" type="submit" value="Upload Picture">
 								</form>
 							</article>
 						</div>
@@ -68,7 +87,7 @@ ini_set("display_errors", true);
 		<!-- last 5 uploaded imgs sidebar -->
 					<div class="tile is-4">
 						<div class="tile is-parent">
-							<article class="tile is-child box">
+							<article class="tile is-child box"> 
 								<p class="title">Images You've Uploaded</p>
 								<?php get_upload_thumbs($_SESSION['user_id']); ?>
 							</article>
