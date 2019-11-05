@@ -2,7 +2,7 @@
 
 function get_comment_count($img_id) {
 	try {
-		$con = new PDO("mysql:host=localhost;dbname=db_camagru", "root", "qwerqwer");
+		$con = new PDO("mysql:host=localhost;dbname=db_camagru", "root", "root");
 		$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOException $e) {
@@ -59,17 +59,19 @@ function post_comment($img) {
 
 	if (isset($_SESSION['user_id'])) {
 		$comment = $_POST['cmntContent'];
-		$commentor_id = $_SESSION['user_id'];
+		if (validate_comment($comment)) {
+			$commentor_id = $_SESSION['user_id'];
 
-		if ($commentor_id) {
+			if ($commentor_id) {
 
-			$post_cmnt_sql = "INSERT INTO comments(cmnt_img_id, cmnt_usr_id, comment) VALUES(:img_id, :cmntr_id, :cmnt)";
-			$post_cmnt = $con->prepare($post_cmnt_sql);
-			$post_cmnt->execute(array(':img_id'=>$img, ':cmntr_id'=>$commentor_id, ':cmnt'=>$comment));
-			$op = get_post_user($img);
-			notify_comment($op);
-		} else {
-			echo "<script>alert('Please Log In or Register to like or comment!')</script>";
+				$post_cmnt_sql = "INSERT INTO comments(cmnt_img_id, cmnt_usr_id, comment) VALUES(:img_id, :cmntr_id, :cmnt)";
+				$post_cmnt = $con->prepare($post_cmnt_sql);
+				$post_cmnt->execute(array(':img_id'=>$img, ':cmntr_id'=>$commentor_id, ':cmnt'=>$comment));
+				$op = get_post_user($img);
+				notify_comment($op);
+			} else {
+				echo "<script>alert('Please Log In or Register to like or comment!')</script>";
+			}
 		}
 	}
 }
