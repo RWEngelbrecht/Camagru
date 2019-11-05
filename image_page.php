@@ -51,27 +51,31 @@ session_start();
 				<div class="container is-fluid">
 					<!-- <div class="gallery"> -->
 						<?php
-						if (isset($_POST['like'])) {
-							post_like($_GET['img']);
-						}
-						if (isset($_POST['apathy'])) {
-							delete_like($_GET['img']);
-						}
-						if (isset($_POST['comment'])) {
-							post_comment($_GET['img']);
-						}
-						get_image($_GET['img']);
+							if (isset($_POST['like'])) {
+								post_like($_GET['img']);
+							}
+							if (isset($_POST['apathy'])) {
+								delete_like($_GET['img']);
+							}
+							if (isset($_POST['comment'])) {
+								post_comment($_GET['img']);
+							}
+							get_image($_GET['img']);
 						?>
 						<div class="control">
 							<form method="POST">
 								<?php
+								echo "<div class='level'>";
 									if (!post_is_liked($_GET['img'])) {
-										echo "<input class='button is-light' type='submit' name='like' value='Like'>";
+										echo "<div class='level-left'><input class='button is-light' type='submit' name='like' value='Like'></div><br/>";
 									} else {
-										echo "<input class='button is-success' type='submit' name='apathy' value='Liked'>";
+										echo "<div class='level-left'><input class='button is-success' type='submit' name='apathy' value='Liked'></div><br/>";
 									}
+									if (is_my_post($_GET['img'])) {
+										echo "<div class='level-right'><input class='button is-danger' type='submit' name='delete_post' value='Delete'></div>";
+									}
+								echo "</div>";
 								?>
-								<br/>
 								<input class="textarea" type="text" name="cmntContent" placeholder="Comment...">
 								<div class="field is-grouped is-grouped-right">
 									<input class="button is-success" type="submit" name="comment" value="Comment">
