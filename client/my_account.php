@@ -76,7 +76,7 @@ session_start();
 								echo "<img class='is-rounded' src='data:image/png;base64,".$u_img."' />";
 							?>
 						</figure>
-						<br/>
+
 					<p class="menu-label">
 						<?php echo $_SESSION['user_name'] ?>
 					</p>
