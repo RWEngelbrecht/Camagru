@@ -22,7 +22,7 @@ if (isset($_POST['submit_taken'])) {
                 $upld = $con->prepare($upl_sql);
                 $upld->execute(array(':usr_id'=>$u_id, ':img'=>$image));
                 echo "<script>alert('Upload Successful!')</script>";
-                echo "<script>window.open('../client/my_account.php','_self')</script>";
+                // echo "<script>window.open('../client/my_account.php','_self')</script>";
             }
         } catch (PDOException $e) {
             echo $upl_sql."<br/>".$e;
