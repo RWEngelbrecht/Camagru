@@ -234,7 +234,7 @@ function get_upload_thumbs($user) {
 		$get_imgs_sql = "SELECT * FROM images WHERE u_id=:usr_id ORDER BY date_created DESC LIMIT 5";
 		$get_user_imgs = $con->prepare($get_imgs_sql);
 		$get_user_imgs->execute(array(':usr_id'=>$user));
-		
+
 		while ($img = $get_user_imgs->fetch()) {
 			$img_name = $img['img_name'];
 			$img_id = $img['img_id'];
@@ -250,14 +250,16 @@ function get_upload_thumbs($user) {
 function is_my_post($img) {
 	include 'includes/connect.php';
 
-	$get_img_sql = "SELECT u_id FROM images WHERE img_id=:image_id";
-	$img_usr_id = $con->prepare($get_img_sql);
-	$img_usr_id->execute([':image_id'=>$img]);
-	$img_usr = $img_usr_id->fetch();
-	if ($img_usr['u_id'] == $_SESSION['user_id']) {
-		return true;
+	if (isset($_SESSION['user_name'])) {
+		$get_img_sql = "SELECT u_id FROM images WHERE img_id=:image_id";
+		$img_usr_id = $con->prepare($get_img_sql);
+		$img_usr_id->execute([':image_id'=>$img]);
+		$img_usr = $img_usr_id->fetch();
+		if ($img_usr['u_id'] == $_SESSION['user_id']) {
+			return true;
+		}
+		return false;
 	}
-	return false;
 }
 
 function update_user($user_id) {
@@ -331,7 +333,7 @@ function update_image($user_id, $new_image) {
 
 function delete_post($img_id) {
 	include 'includes/connect.php';
-	
+
 	$del_like_sql = "DELETE FROM likes WHERE like_img_id=:img";
 	$del_like = $con->prepare($del_like_sql);
 	$del_like->execute(array(':img'=>$img_id));
@@ -347,5 +349,16 @@ function delete_post($img_id) {
 	$con = null;
 	echo "<script>alert('Post deleted.')</script>";
 	echo "<script>window.open('index.php', '_self')</script>";
+}
+
+function get_post_user($img_id) {
+	include 'includes/connect.php';
+
+	$get_post_usr_sql = "SELECT u_id FROM images WHERE img_id=:img";
+	$get_post_usr = $con->prepare($get_post_usr_sql);
+	$get_post_usr->execute([':img'=>$img_id]);
+	$post_usr = $get_post_usr->fetch();
+
+	return $post_usr['u_id'];
 }
 ?>
