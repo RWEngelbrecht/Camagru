@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include("config/setup.php");
+// include("config/setup.php");
 include "../functions/functions.php";
 include "../functions/upload_taken.php";
 ini_set("display_errors", true);
@@ -87,7 +87,7 @@ ini_set("display_errors", true);
 		<!-- last 5 uploaded imgs sidebar -->
 					<div class="tile is-4">
 						<div class="tile is-parent">
-							<article class="tile is-child box"> 
+							<article class="tile is-child box">
 								<p class="title">Images You've Uploaded</p>
 								<?php get_upload_thumbs($_SESSION['user_id']); ?>
 							</article>
