@@ -33,18 +33,6 @@ session_start();
 	</head>
 	<body>
 		<header>
-			<!-- <a href="../index.php">
-				<img id="banner" src="../images/rengelbr_logo.png">
-			</a>
-			<div class="menubar">
-				<div class="nav_bar">
-					<ul id="my_acc_menu">
-						<li><a href="../index.php">Home</a></li>
-						<li><a href='../new_upload.php'>New Upload</a></li>
-						<li><a href="my_account.php?session_status=logout">Log Out</a></li>
-					</ul>
-				</div>
-			</div> -->
 			<div class="navbar">
 			<div class="navbar-brand">
 				<a href="../index.php">
@@ -95,7 +83,7 @@ session_start();
 									else {
 										get_upload_thumbs($_SESSION['user_id']);
 									}
-									if (isset($_POST['updt_name']) || isset($_POST['updt_email']) || isset($_POST['updt_passwd']) || isset($_POST['updt_image'])){
+									if (isset($_POST['updt_name']) || isset($_POST['updt_email']) || isset($_POST['updt_passwd']) || isset($_POST['updt_image']) || isset($_POST['updt_notif'])){
 										update_user($u_data['user_id']);
 									}
 								?>
