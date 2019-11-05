@@ -237,11 +237,27 @@ function get_upload_thumbs($user) {
 		
 		while ($img = $get_user_imgs->fetch()) {
 			$img_name = $img['img_name'];
+			$img_id = $img['img_id'];
 			echo "	<figure class='image'>
-						<img src='data:image/png;base64,".$img_name."' />
+						<a href='../image_page.php?img=$img_id'>
+							<img src='data:image/png;base64,".$img_name."' />
+						</a>
 					</figure>";
 		}
 	}
+}
+
+function is_my_post($img) {
+	include 'includes/connect.php';
+
+	$get_img_sql = "SELECT u_id FROM images WHERE img_id=:image_id";
+	$img_usr_id = $con->prepare($get_img_sql);
+	$img_usr_id->execute([':image_id'=>$img]);
+	$img_usr = $img_usr_id->fetch();
+	if ($img_usr['u_id'] == $_SESSION['user_id']) {
+		return true;
+	}
+	return false;
 }
 
 function update_user($user_id) {
