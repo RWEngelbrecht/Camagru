@@ -56,6 +56,7 @@ session_start();
 							$_SESSION['user_name'] = $user['user_name'];
 							$_SESSION['user_email'] = $user['user_email'];
 							$_SESSION['user_id'] = $user['user_id'];
+							$_SESSION['notif'] = $user_data['notify'];
 							echo "<p class='title'>You are already a verified user. That's good, but what are you doing in a place like this? Just click <a href='my_account.php'>here</a>.</p>";
 						} else {
 							$u_email = $user['user_email'];
@@ -72,6 +73,7 @@ session_start();
 								$_SESSION['user_name'] = $user['user_name'];
 								$_SESSION['user_email'] = $user['user_email'];
 								$_SESSION['user_id'] = $user['user_id'];
+								$_SESSION['notif'] = $user_data['notify'];
 								echo "<p class='title'>Your account is verified. Yay! Let's get started with your new, more fulfilling life! Just click <a href='my_account.php?'>here</a>.</p>";
 						}
 					}
