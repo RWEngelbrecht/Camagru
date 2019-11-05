@@ -60,6 +60,9 @@ session_start();
 							if (isset($_POST['comment'])) {
 								post_comment($_GET['img']);
 							}
+							if (isset($_POST['delete_post'])) {
+								delete_post($_GET['img']);
+							}
 							get_image($_GET['img']);
 						?>
 						<div class="control">
