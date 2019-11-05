@@ -46,10 +46,16 @@ ini_set("display_errors", true);
 							<article class="tile is-child box">
 								<p class="title">Take a picture</p>
 									<video autoplay id='vid' width='720' height='480' style=''></video>
-									<button id="shoot">Take Picture</button>
+									<button id="shoot">Take Picture</button>	
 									<canvas id='uploadCanvas' width='720' height='480' style=""></canvas>
 								<form action="" method="POST" enctype=multipart/form-data>
 									<input name="taken" id="taken" type="hidden" value="upload_taken.php">
+									<div class="box column has-text-centered is-10 is-offset-1">
+										<img src="http://localhost:8080/Camagru/images/superimposables/neon_triangle.png" class="supers" width="100" height="100">
+										<img src="http://localhost:8080/Camagru/images/superimposables/cracked_glass.png" class="supers" width="100" height="100">
+										<img src="http://localhost:8080/Camagru/images/superimposables/paint_me_bart.png" class="supers" width="100" height="100">
+										<img src="http://localhost:8080/Camagru/images/superimposables/handsome.png" class="supers" width="100" height="100">
+									</div>
 									<button class="button" type="submit" name="submit_taken" id="submit_taken">Upload Photo</button>
 								<br/><br/><p class="title">Or Upload a picture</p>
 									<input name="upl_image" id="upl_image" type="file">
