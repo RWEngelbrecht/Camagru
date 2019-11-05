@@ -3,7 +3,6 @@
 function get_image($img_id) {
 	include 'includes/connect.php';
 
-
 	$get_img_sql = "SELECT * FROM images WHERE img_id=?";
 	$get_img = $con->prepare($get_img_sql);
 	$get_img->execute([$img_id]);
