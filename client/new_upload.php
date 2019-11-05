@@ -2,8 +2,9 @@
 <?php
 include("config/setup.php");
 include "../functions/functions.php";
+include "../functions/upload_taken.php";
 ini_set("display_errors", true);
-session_start();
+// session_start();
 ?>
 <html lang="en">
 	<head>
@@ -12,30 +13,7 @@ session_start();
 		<meta name="author" content="Rigardt Engelbrecht">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-		<script>
-			function hasGetUserMedia() {
-					return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-				}
-				if (!hasGetUserMedia()) {
-					alert("navigator.mediaDevices.getUserMedia doesn\'t exist");
-				}
-				function startup() {
-					var vid = document.getElementById("vid");
-					var canv = document.getElementById("uploadCanvas");
-					var photo = document.getElementById("photo");
-					var shoot = document.getElementById("shoot");
-
-					var contx = canv.getContext('2d');
-
-					shoot.addEventListener('click', function(ev){
-						contx.drawImage(vid, 0, 0, 720, 480);
-						var data = canv.toDataURL('image/png');
-						// photo.setAttribute('src', data);
-
-						document.getElementById('taken').value = data;
-					});
-				}
-		</script>
+		<script src="../functions/hasGetUserMedia.js"></script>
 		<title>Camagru</title>
 	</head>
 	<body>
@@ -61,27 +39,27 @@ session_start();
 		</header>
 		<main>
 			<section class="section">
+	<!-- webcam and image upload tile -->
 				<div class="tile is-ancestor">
 					<div class="tile is-8">
 						<div class="tile is-parent">
 							<article class="tile is-child box">
 								<p class="title">Take a picture</p>
-										<video autoplay id='vid' width='720' height='480' style=''></video>
-										<button id="shoot">Take Picture</button>
-										<canvas id='uploadCanvas' width='720' height='480' style="">
-										</canvas>
-										<img id="photo">
-
-
+									<video autoplay id='vid' width='720' height='480' style=''></video>
+									<button id="shoot">Take Picture</button>
+									<canvas id='uploadCanvas' width='720' height='480' style=""></canvas>
+								<form action="" method="POST" enctype=multipart/form-data>
+									<input name="taken" id="taken" type="hidden" value="upload_taken.php">
+									<button class="button" type="submit" name="submit_taken" id="submit_taken">Upload Photo</button>
 								<br/><br/><p class="title">Or Upload a picture</p>
-								<form action="" method="POST">
-									<input name="taken" id="taken" type="hidden">
 									<input name="upl_image" id="upl_image" type="file">
 									<input name="upload" type="submit" value="Upload Picture">
 								</form>
 							</article>
 						</div>
 					</div>
+		<!-- end of webcam and image upload tile -->
+		<!-- last 5 uploaded imgs sidebar -->
 					<div class="tile is-4">
 						<div class="tile is-parent">
 							<article class="tile is-child box">
@@ -91,7 +69,7 @@ session_start();
 						</div>
 					</div>
 				</div>
-
+		<!-- sidebar ends -->
 				<?php
 					if (isset($_POST['upload'])){
 						if (isset($_FILES['upl_image']['name'])){
@@ -100,25 +78,14 @@ session_start();
 					}
 				?>
 			</section>
-		<main>
+		</main>
 	</body>
 	<footer>
 		<div id="footer">
 			<h2 style="text-align:center; padding-top:30px;">&#169; rengelbr</h2>
 		</div>
 	</footer>
-	<script>
-		var video = document.querySelector("#vid");
-		navigator.mediaDevices.getUserMedia({video:true}).then(function(stream) {
-				video.srcObject = stream;
-				video.play();
-			}).catch(function(error) {
-				console.log("Well, that did not work.");
-			});
-
-		document.getElementById("shoot").onclick = startup();
-		document.getElementById('taken').value = data;
-	</script>
+	<script src="../includes/take_picture.js"></script>
 </html>
 <?php
 if (isset($_GET['session_status'])) {
