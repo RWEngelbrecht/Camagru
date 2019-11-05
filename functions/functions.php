@@ -328,4 +328,24 @@ function update_image($user_id, $new_image) {
 		$updt_image->execute(array(':u_image'=>$new_image, ':u_id'=>$user_id));
 	}
 }
+
+function delete_post($img_id) {
+	include 'includes/connect.php';
+	
+	$del_like_sql = "DELETE FROM likes WHERE like_img_id=:img";
+	$del_like = $con->prepare($del_like_sql);
+	$del_like->execute(array(':img'=>$img_id));
+
+	$del_cmnt_sql = "DELETE FROM comments WHERE cmnt_img_id=:img";
+	$del_cmnt = $con->prepare($del_cmnt_sql);
+	$del_cmnt->execute(array(':img'=>$img_id));
+
+	$del_img_sql = "DELETE FROM images WHERE img_id=:img AND u_id=:usr";
+	$del_img = $con->prepare($del_img_sql);
+	$del_img->execute(array(':img'=>$img_id, ':usr'=>$_SESSION['user_id']));
+
+	$con = null;
+	echo "<script>alert('Post deleted.')</script>";
+	echo "<script>window.open('index.php', '_self')</script>";
+}
 ?>
