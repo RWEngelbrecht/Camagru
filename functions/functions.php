@@ -21,6 +21,13 @@ function validate_password($passwd) {
 	}
 }
 
+function validate_comment($comment) {
+	if (preg_match("/^.*<script>.*$/", $comment)) {
+		return false;
+	}
+	return true;
+}
+
 //sends verification email
 function verif_email($u_email, $ver_code) {
 	$subject = "Activate your account with Camagru.";
@@ -37,7 +44,7 @@ function verif_email($u_email, $ver_code) {
 function verif_user($user_id) {
 	// include ('../includes/connect.php');
 	try {
-		$con = new PDO("mysql:host=localhost;dbname=db_camagru", "root", "qwerqwer");
+		$con = new PDO("mysql:host=localhost;dbname=db_camagru", "root", "root");
 		$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	catch(PDOException $e) {
@@ -107,6 +114,7 @@ function log_in() {
 			$_SESSION['user_email'] = $u_email;
 			$_SESSION['user_id'] = $user_data['user_id'];
 			$_SESSION['user_name'] = $user_data['user_name'];
+			$_SESSION['notif'] = $user_data['notify'];
 //take client to their account page
 			echo "<script>window.open('client/my_account.php?', '_self')</script>";
 		} //if all of the above, but user has not gone through verification link emailed to them
@@ -283,7 +291,27 @@ function update_user($user_id) {
 		$new_img_tmp = base64_encode(file_get_contents($_FILES['new_image']['tmp_name']));
 		update_image($user_id, $new_img_tmp);
 	}
+	if (isset($_POST['updt_notif'])) {
+
+		$user = $_SESSION['user_id'];
+		update_notify($user);
+	}
 	echo "<script>window.open('my_account.php', '_self')</script>";
+}
+
+function update_notify($user_id) {
+	include '../includes/connect.php';
+	if (isset($_POST['notif'])) {
+		$updt_sql = "UPDATE users SET notify=1 WHERE user_id=:u_id";
+		$updt_notif = $con->prepare($updt_sql);
+		$updt_notif->execute([':u_id'=>$user_id]);
+		$_SESSION['notif'] = 1;
+	} else {
+		$updt_sql = "UPDATE users SET notify=0 WHERE user_id=:u_id";
+		$updt_notif = $con->prepare($updt_sql);
+		$updt_notif->execute([':u_id'=>$user_id]);
+		$_SESSION['notif'] = 0;
+	}
 }
 
 function update_name($user_id, $new_name) {
@@ -306,8 +334,6 @@ function update_email($user_id, $new_email) {
 		$updt_sql = "UPDATE users SET user_email=:u_email, verified=0, token=:new_verif WHERE user_id=:u_id";
 		$updt_email = $con->prepare($updt_sql);
 		$updt_email->execute(array(':u_email'=>$new_email, ':new_verif'=>$new_verif,':u_id'=>$user_id));
-
-
 
 		verif_email($new_email, $new_verif);
 	}
