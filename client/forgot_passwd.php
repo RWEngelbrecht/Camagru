@@ -41,18 +41,6 @@ session_start();
 			<div class="container">
 	<!-- login form -->
 				<form method="POST" action="">
-					<!-- <table>
-						<tr align="center">
-							<td colspan="3"><h3 style="color:white;margin:10px">Forgot to have your browser remember your password, did you?</h3></td>
-						</tr>
-						<tr>
-							<td align="right" style="color:white;padding:15px">Email:</td>
-							<td><input type="text" name="user_email" placeholder="email" required/></td>
-						</tr>
-						<tr align="center">
-							<td colspan="3"><input type="submit" name="reset" value="Reset Password"/></td>
-						</tr>
-					</table> -->
 					<div class="field">
 						<label class="label">Forgot to remember your password?</label>
 						<p class="control has-icons-left">
