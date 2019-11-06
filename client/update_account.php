@@ -57,13 +57,15 @@
 <form method="POST">
 	<div class="level">
 		<div class="level-left">
-			<label class='label'>Notifications: </label>
-		</div>
-		<div class="level-item">
-			<input type="checkbox" name="notif" <?php if($_SESSION['notif'] == 1){echo "checked";} ?>>
-		<!-- </div> -->
-		<!-- <div class="level-item" > -->
-		<input class="button is-success is-medium" type="submit" name="updt_notif" value="Update">
+			<div class="level-item">
+				<label class='label'>Notifications: </label>
+			</div>
+			<div class="level-item">
+				<input type="checkbox" name="notif" <?php if($_SESSION['notif'] == 1){echo "checked";} ?>>
+			</div>
+			<div class="level-item">
+				<input class="button is-success is-medium" type="submit" name="updt_notif" value="Update">
+			</div>
 		</div>
 	</div>
 </form>
