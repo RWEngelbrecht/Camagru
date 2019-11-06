@@ -54,24 +54,24 @@ session_start();
 		<section class="section" style="margin-top:150px">
 				<div class="tile is-ancestor">
 					<div class="tile is-2">
-					<article class="tile is-child box">
-						<figure class="image is-128x128">
-							<?php
-								$get_udata = $con->prepare("SELECT * FROM users WHERE user_email=?");
-								$get_udata->execute([$_SESSION['user_email']]);
-								$u_data = $get_udata->fetch();
-								$u_img = $u_data['user_image'];
-								echo "<img class='is-rounded' src='data:image/png;base64,".$u_img."' />";
-							?>
-						</figure>
-
-					<p class="menu-label">
-						<?php echo $_SESSION['user_name'] ?>
-					</p>
-					<ul class="menu-list">
-						<li><a id="open-modal" href="my_account.php?session_status=update">Edit Account</a></li>
-					</ul>
-					</article>
+						<article class="tile is-child box">
+							<figure class="image is-128x128">
+								<?php
+									$get_udata = $con->prepare("SELECT * FROM users WHERE user_email=?");
+									$get_udata->execute([$_SESSION['user_email']]);
+									$u_data = $get_udata->fetch();
+									$u_img = $u_data['user_image'];
+									echo "<img class='is-rounded' src='data:image/png;base64,".$u_img."' />";
+								?>
+							</figure>
+						<br/>
+						<p class="menu-label">
+							<?php echo $_SESSION['user_name'] ?>
+						</p>
+						<ul class="menu-list">
+							<li><a id="open-modal" href="my_account.php?session_status=update">Edit Account</a></li>
+						</ul>
+						</article>
 					</div>
 					<div class="tile is-10">
 						<div class="tile is-parent">
