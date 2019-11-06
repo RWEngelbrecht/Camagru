@@ -42,7 +42,6 @@ function verif_email($u_email, $ver_code) {
 
 // Checks if user id corresponds to registered user
 function verif_user($user_id) {
-	// include ('../includes/connect.php');
 	try {
 		$con = new PDO("mysql:host=localhost;dbname=db_camagru", "root", "root");
 		$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -201,7 +200,7 @@ function get_gallery() {
 		$cmnts_amnt = get_comment_count($img_id);
 		$likes_amnt = get_like_count($img_id);
 		echo "	<div class='tile is-ancestor'>
-					<div class='tile is-5 is-vertical'>
+					<div class='tile is-12 is-vertical'>
 						<div class='tile is-parent'>
 						<article class='tile is-child box'>
 							<figure class='image'>
@@ -226,7 +225,6 @@ function upload_image($user) {
 		if (!$upl_img_name)
 			exit();
 		$upl_img_tmp = base64_encode(file_get_contents($_FILES['upl_image']['tmp_name']));
-		// move_uploaded_file($upl_image_tmp, "client/uploads/$upl_img_name");
 
 		$upload_sql = "INSERT INTO images(u_id, img_name) VALUES(:u_id, :img)";
 		$upload_image = $con->prepare($upload_sql);
