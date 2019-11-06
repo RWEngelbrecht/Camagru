@@ -215,7 +215,6 @@ function get_gallery() {
 					</div>
 				</div>";
 	}
-	echo '';
 }
 
 function upload_image($user) {
