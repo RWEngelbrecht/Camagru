@@ -74,7 +74,7 @@ ini_set("display_errors", true);
 										<img src="http://localhost:8080/Camagru/images/superimposables/handsome.png" class="supers" width="100" height="100">
 									</div>
 									<div class="buttons is-centered">
-										<button class="button is-centered" type="submit" name="submit_taken" id="submit_taken">Upload Photo</button>
+										<button class="button is-centered is-hidden" type="submit" name="submit_taken" id="submit_taken" style="">Upload Photo</button>
 									</div>
 								<br/><br/><p class="title">Or Upload a picture</p>
 									<input name="upl_image" id="upl_image" type="file">
