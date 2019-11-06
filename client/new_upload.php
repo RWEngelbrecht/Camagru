@@ -14,20 +14,7 @@ ini_set("display_errors", true);
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 		<script src="../functions/hasGetUserMedia.js"></script>
-		<style>
-			.navbar-brand {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 220px;
-				z-index: 10;
-				background: #eeeeee;
-				-webkit-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
-				-moz-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
-				box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
-			}
-		</style>
+		<link rel="stylesheet" href="http://localhost:8080/Camagru/styles/index.css">
 		<title>Camagru</title>
 	</head>
 	<body>
@@ -52,7 +39,7 @@ ini_set("display_errors", true);
 			</div>
 		</header>
 		<main>
-			<section class="section" style="margin-top:150px">
+			<section class="section" style="margin-top:150px;margin-bottom:100px">
 	<!-- webcam and image upload tile -->
 				<div class="tile is-ancestor">
 					<div class="tile is-8">
