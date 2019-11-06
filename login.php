@@ -13,20 +13,7 @@ session_start();
 		<meta name="author" content="Rigardt Engelbrecht">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 		<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-		<style>
-			.navbar-brand {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 220px;
-				z-index: 10;
-				background: #eeeeee;
-				-webkit-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
-				-moz-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
-				box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
-			}
-		</style>
+		<link rel="stylesheet" href="http://localhost:8080/Camagru/styles/index.css">
 		<title>Camagru - Login</title>
 	</head>
 	<body>
@@ -43,7 +30,7 @@ session_start();
 				</div>
 			</div>
 		</header>
-		<section class="section" style="margin-top:150px">
+		<section class="section" style="margin-top:150px;margin-bottom:100px">
 <!--content wrapper starts-->
 			<div class="container">
 	<!-- login form -->
@@ -86,12 +73,13 @@ session_start();
 				?>
 			</div>
 		</section>
+	</body>
 		<!--footer starts-->
+		<footer>
 			<div id="footer">
 				<h2 style="text-align:center; padding-top:30px;">&#169; rengelbr</h2>
 			</div>
-		</div>
+		</footer>
 		<!--footer ends-->
-	</body>
 </html>
 
