@@ -28,6 +28,18 @@ function get_commentor_name($usr_id) {
 	return $cmntr_name['user_name'];
 }
 
+function get_commentor_img($usr_id) {
+	include 'includes/connect.php';
+
+	$cmntr_img_sql = "SELECT user_image FROM users WHERE user_id=?";
+	$get_cmntr_img = $con->prepare($cmntr_img_sql);
+	$get_cmntr_img->execute([$usr_id]);
+	$cmntr_img = $get_cmntr_img->fetch();
+
+	return $cmntr_img['user_image'];
+
+}
+
 function get_comments($img_id) {
 	include 'includes/connect.php';
 
@@ -37,13 +49,25 @@ function get_comments($img_id) {
 
 	while ($cmnts = $get_cmnts->fetch()) {
 		$commentor = get_commentor_name($cmnts['cmnt_usr_id']);
+		$cmntr_img = get_commentor_img($cmnts['cmnt_usr_id']);
 		$comment = $cmnts['comment'];
 		echo "	<div class='tile is-ancestor'>
 					<div class='tile is-8 is-vertical'>
 						<div class='tile is-parent'>
-						<article class='tile is-child box'>
-							<p class='title'>$commentor</p>
-							<p class='subtitle'>$comment</p>
+						<article class='media'>
+							<figure class='media-left'>
+								<p class='image is-64x64'>
+									<img src='data:image/png;base64,$cmntr_img'>
+								</p>
+							</figure>
+							<div class='media-content'>
+								<div class='content'>
+									<p>
+										<strong>$commentor</strong><br/>
+										<small>$comment</small>
+									</p>
+								</div>
+							<div>
 						</article>
 					  </div>
 					</div>
